@@ -25,5 +25,26 @@ namespace WebStore.Controllers
             if (employee is null) return NotFound();
             return View(employee);
         }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id is null) return NotFound();
+            var employee = __Employees.FirstOrDefault(e => e.Id == id);
+            if (employee is null) return NotFound();
+            return View(employee);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EmployeeView EmployeInfo)
+        {
+            if (!ModelState.IsValid) return View(EmployeInfo);
+            var employee = __Employees.FirstOrDefault(e => e.Id == EmployeInfo.Id);
+            if (employee is null) return NotFound();
+            employee.FirstName = EmployeInfo.FirstName;
+            employee.LastName = EmployeInfo.LastName;
+            employee.Patronymic = EmployeInfo.Patronymic;
+            employee.Age = EmployeInfo.Age;
+            return RedirectToAction(nameof(Details), new { id = EmployeInfo.Id });
+        }
     }
 }
