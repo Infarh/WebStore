@@ -4,16 +4,12 @@
     ViewData["Title"] = "Edit";
 }
 
-<section>
-    <div class="container">
-        @using (Html.BeginForm())
-        {
-            @Html.EditorForModel()
-            <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-primary" />
-            </div>
-        }
-        <a asp-action="Index">К списку</a>
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-primary" />
     </div>
-</section>
+}
+<a asp-action="Index">К списку</a>
 

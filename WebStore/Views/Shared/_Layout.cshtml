@@ -23,7 +23,11 @@
 <body>
     @await Html.PartialAsync("Partial/_Header")
 
-    @RenderBody()
+    <section>
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
 
     @await Html.PartialAsync("Partial/_Footer")
 
