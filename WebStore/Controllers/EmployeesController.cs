@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using WebStore.Models;
+
+namespace WebStore.Controllers
+{
+    public class EmployeesController : Controller
+    {
+        private static readonly List<EmployeeView> __Employees = new List<EmployeeView>
+        {
+            new EmployeeView { Id = 1, FirstName = "Иван", LastName = "Иванов", Patronymic = "Иванович", Age = 23 },
+            new EmployeeView { Id = 2, FirstName = "Пётр", LastName = "Петров", Patronymic = "Петрович", Age = 32 },
+            new EmployeeView { Id = 3, FirstName = "Сидор", LastName = "Сидоров", Patronymic = "Сидорович", Age = 33 },
+        };
+
+        public IActionResult Index() => View(__Employees);
+
+        public IActionResult Details(int? id)
+        {
+            if (id is null) return NotFound();
+            var employee = __Employees.FirstOrDefault(e => e.Id == id);
+            if (employee is null) return NotFound();
+            return View(employee);
+        }
+    }
+}

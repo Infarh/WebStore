@@ -1,0 +1,39 @@
+﻿@model IEnumerable<EmployeeView>
+
+@{
+    ViewData["Title"] = "Работники";
+}
+
+<section>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Возраст</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.Id</td>
+                        <td>@employee.LastName</td>
+                        <td>@employee.FirstName</td>
+                        <td>@employee.Patronymic</td>
+                        <td>@employee.Age</td>
+                        <td>@Html.ActionLink("Детали", "Details", new { Id = employee.Id }, new { @class = "btn btn-info" } )</td>
+                        @*<td><a href="#" class="btn btn-info">Детали</a></td>*@
+                        <td><a href="#" class="btn btn-danger">Удалить</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
