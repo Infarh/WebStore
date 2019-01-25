@@ -8,23 +8,26 @@
 <table class="table table-bordered">
     <tbody>
         <tr>
-            <th>Фамилия</th>
+            <th>@Html.LabelFor(e => e.LastName)</th>
             <td>@Model.LastName</td>
         </tr>
         <tr>
-            <th>Имя</th>
+            <th>@Html.LabelFor(e => e.FirstName)</th>
             <td>@Model.FirstName</td>
         </tr>
         <tr>
-            <th>Отчество</th>
+            <th>@Html.LabelFor(e => e.Patronymic)</th>
             <td>@Model.Patronymic</td>
         </tr>
         <tr>
-            <th>Возраст</th>
+            <th>@Html.LabelFor(e => e.Age)</th>
             <td>@Model.Age</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(e => e.Position)</th>
+            <td>@Model.Position</td>
         </tr>
     </tbody>
 </table>
 <a asp-action="Edit" asp-route-id="@Model.Id">Редактировать</a>
 @Html.ActionLink("К списку сотрудников", "Index")
-

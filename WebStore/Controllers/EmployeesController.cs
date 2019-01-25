@@ -46,6 +46,7 @@ namespace WebStore.Controllers
                 employee.LastName = EmployeInfo.LastName;
                 employee.Patronymic = EmployeInfo.Patronymic;
                 employee.Age = EmployeInfo.Age;
+                employee.Position = EmployeInfo.Position;
             }
             _Employees.SaveChanges();
             return RedirectToAction(nameof(Index));

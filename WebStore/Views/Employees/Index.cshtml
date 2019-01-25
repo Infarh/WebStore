@@ -14,10 +14,11 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Возраст</th>
+            <th>@Html.LabelFor(e => e.First().LastName)</th>
+            <th>@Html.LabelFor(e => e.First().FirstName)</th>
+            <th>@Html.LabelFor(e => e.First().Patronymic)</th>
+            <th>@Html.LabelFor(e => e.First().Age)</th>
+            <th>@Html.LabelFor(e => e.First().Position)</th>
             <th></th>
             <th></th>
         </tr>
@@ -31,6 +32,7 @@
                 <td>@employee.FirstName</td>
                 <td>@employee.Patronymic</td>
                 <td>@employee.Age</td>
+                <td>@employee.Position</td>
                 <td>@Html.ActionLink("Детали", "Details", new { Id = employee.Id }, new { @class = "btn btn-info" })</td>
                 @*<td><a href="#" class="btn btn-info">Детали</a></td>*@
                 <td><a asp-controller="Employees" asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">Удалить</a></td>
