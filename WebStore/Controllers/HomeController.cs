@@ -8,6 +8,6 @@ namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index() => Content("Home controller index action result");
+        public IActionResult Index() => View();
     }
 }
