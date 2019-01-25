@@ -31,9 +31,9 @@ namespace WebStore
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
-            {
+            {  
                 routes.MapRoute(
-                    name:"default", 
+                    name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
