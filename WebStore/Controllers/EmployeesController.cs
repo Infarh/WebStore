@@ -26,7 +26,7 @@ namespace WebStore.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if (id is null) return NotFound();
+            if (id is null) return View(new EmployeeView());
             var employee = _Employees.Get((int)id);
             if (employee is null) return NotFound();
             return View(employee);
@@ -36,13 +36,19 @@ namespace WebStore.Controllers
         public IActionResult Edit(EmployeeView EmployeInfo)
         {
             if (!ModelState.IsValid) return View(EmployeInfo);
-            var employee = _Employees.Get(EmployeInfo.Id);
-            if (employee is null) return NotFound();
-            employee.FirstName = EmployeInfo.FirstName;
-            employee.LastName = EmployeInfo.LastName;
-            employee.Patronymic = EmployeInfo.Patronymic;
-            employee.Age = EmployeInfo.Age;
-            return RedirectToAction(nameof(Details), new { id = EmployeInfo.Id });
+            if (EmployeInfo.Id == 0)
+                _Employees.AddNew(EmployeInfo);
+            else
+            {
+                var employee = _Employees.Get(EmployeInfo.Id);
+                if (employee is null) return NotFound();
+                employee.FirstName = EmployeInfo.FirstName;
+                employee.LastName = EmployeInfo.LastName;
+                employee.Patronymic = EmployeInfo.Patronymic;
+                employee.Age = EmployeInfo.Age;
+            }
+            _Employees.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
