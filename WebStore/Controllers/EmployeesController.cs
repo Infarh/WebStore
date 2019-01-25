@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
 
 namespace WebStore.Controllers
 {
     public class EmployeesController : Controller
     {
-        private static readonly List<EmployeeView> __Employees = new List<EmployeeView>
-        {
-            new EmployeeView { Id = 1, FirstName = "Иван", LastName = "Иванов", Patronymic = "Иванович", Age = 23 },
-            new EmployeeView { Id = 2, FirstName = "Пётр", LastName = "Петров", Patronymic = "Петрович", Age = 32 },
-            new EmployeeView { Id = 3, FirstName = "Сидор", LastName = "Сидоров", Patronymic = "Сидорович", Age = 33 },
-        };
+        private readonly IEmployeesData _Employees;
 
-        public IActionResult Index() => View(__Employees);
+        public EmployeesController(IEmployeesData EmployeesData) => _Employees = EmployeesData;
+
+        public IActionResult Index() => View(_Employees.Get());
 
         public IActionResult Details(int? id)
         {
             if (id is null) return NotFound();
-            var employee = __Employees.FirstOrDefault(e => e.Id == id);
+            var employee = _Employees.Get((int)id);
             if (employee is null) return NotFound();
             return View(employee);
         }
@@ -29,7 +27,7 @@ namespace WebStore.Controllers
         public IActionResult Edit(int? id)
         {
             if (id is null) return NotFound();
-            var employee = __Employees.FirstOrDefault(e => e.Id == id);
+            var employee = _Employees.Get((int)id);
             if (employee is null) return NotFound();
             return View(employee);
         }
@@ -38,7 +36,7 @@ namespace WebStore.Controllers
         public IActionResult Edit(EmployeeView EmployeInfo)
         {
             if (!ModelState.IsValid) return View(EmployeInfo);
-            var employee = __Employees.FirstOrDefault(e => e.Id == EmployeInfo.Id);
+            var employee = _Employees.Get(EmployeInfo.Id);
             if (employee is null) return NotFound();
             employee.FirstName = EmployeInfo.FirstName;
             employee.LastName = EmployeInfo.LastName;
