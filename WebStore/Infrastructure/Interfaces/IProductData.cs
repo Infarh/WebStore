@@ -10,11 +10,13 @@ namespace WebStore.Infrastructure.Interfaces
     public interface IProductData
     {
         /// <summary>Получить секции</summary>
-        /// <returns></returns>
         IEnumerable<Section> GetSections();
 
         /// <summary>Получить бренды</summary>
-        /// <returns></returns>
         IEnumerable<Brand> GetBrands();
+
+        /// <summary>Список товаров</summary>
+        /// <param name="Filter">Фильтр товаров</param>
+        IEnumerable<Product> GetProducts(ProductFilter Filter);
     }
 }
