@@ -50,5 +50,13 @@ namespace WebStore.Controllers
             _Employees.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Delete(int id)
+        {
+            if (_Employees.Get(id) is null) return NotFound();
+            _Employees.Delete(id);
+            _Employees.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -9,7 +9,9 @@
 <hr />
 
 <table class="table table-bordered">
-    <thead>
+    @if (Model.Any())
+    {
+        <thead>
         <tr>
             <th>id</th>
             <th>Фамилия</th>
@@ -19,8 +21,8 @@
             <th></th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach (var employee in Model)
         {
             <tr>
@@ -31,9 +33,14 @@
                 <td>@employee.Age</td>
                 <td>@Html.ActionLink("Детали", "Details", new { Id = employee.Id }, new { @class = "btn btn-info" })</td>
                 @*<td><a href="#" class="btn btn-info">Детали</a></td>*@
-                <td><a href="#" class="btn btn-danger">Удалить</a></td>
+                <td><a asp-controller="Employees" asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">Удалить</a></td>
             </tr>
         }
-    </tbody>
+        </tbody>
+    }
+    else
+    {
+        <p>Сотрудники отсутствуют</p>
+    }
 </table>
 
