@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebStore.Domain.Entries;
+using WebStore.Entities.Entries;
 using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore.Infrastructure.Implementations

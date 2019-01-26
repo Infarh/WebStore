@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using WebStore.Domain.Entries.Base.Interfaces;
+using WebStore.Entities.Entries.Base.Interfaces;
 
 namespace WebStore.Models
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebStore.Domain.Entries;
+using WebStore.Entities.Entries;
 
 namespace WebStore.Infrastructure.Interfaces
 {
