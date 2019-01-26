@@ -1,0 +1,16 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <span>Здравствуйте, @User.Identity.Name!</span>
+    <form asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
+        <div class="form-group">
+            <input type="submit" value="Выход" class="btn btn-default"/>
+        </div>
+    </form>
+}
+else
+{
+    <div class="btn-group pull-right">
+        <a asp-controller="Account" asp-action="Login" class="btn btn-default">Вход</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-default">Регистрация</a>
+    </div>
+}

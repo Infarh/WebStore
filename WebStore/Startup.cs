@@ -45,7 +45,7 @@ namespace WebStore
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 options.Lockout.AllowedForNewUsers = true;
 
-                options.User.RequireUniqueEmail = true;
+                //options.User.RequireUniqueEmail = false;
             });
 
             services.ConfigureApplicationCookie(options =>
