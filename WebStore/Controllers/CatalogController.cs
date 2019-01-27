@@ -26,13 +26,28 @@ namespace WebStore.Controllers
                     Name = product.Name,
                     Order = product.Order,
                     Price = product.Price,
-                    ImageUrl = product.ImageUrl
+                    ImageUrl = product.ImageUrl,
+                    Brand = product.Brand != null ? product.Brand.Name : string.Empty
                 }).OrderBy(product => product.Order).ToList()
             };
 
             return View(model);
         }
 
-        public IActionResult ProductDetails() => View();
+        public IActionResult ProductDetails(int id)
+        {
+            var product = _ProductData.GetProductById(id);
+            return product is null ? 
+                (IActionResult) NotFound() 
+                : View(new ProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Order = product.Order,
+                    Price = product.Price,
+                    ImageUrl = product.ImageUrl,
+                    Brand = product.Brand != null ? product.Brand.Name : string.Empty
+                });
+        }
     }
 }

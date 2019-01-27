@@ -31,5 +31,7 @@ namespace WebStore.Infrastructure.Implementations
 
             return query.AsEnumerable();
         }
+
+        public Product GetProductById(int id) => _DataContext.Products.Find(id);
     }
 }

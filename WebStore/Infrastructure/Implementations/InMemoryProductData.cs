@@ -8,7 +8,6 @@ namespace WebStore.Infrastructure.Implementations
 {
     public class InMemoryProductData : IProductData
     {
-       
         public IEnumerable<Section> GetSections() => TestData.Sections;
 
         public IEnumerable<Brand> GetBrands() => TestData.Brands;
@@ -24,5 +23,7 @@ namespace WebStore.Infrastructure.Implementations
                 products = products.Where(product => product.SectionId == Filter.BrandId);
             return products;
         }
+
+        public Product GetProductById(int id) => GetProducts(null).FirstOrDefault(product => product.Id == id);
     }
 }
