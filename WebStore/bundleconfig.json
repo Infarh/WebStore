@@ -1,0 +1,26 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/site.mini.css",
+    "inputFiles": [
+      "wwwroot/css/site.css",
+      "wwwroot/css/animate.css",
+      "wwwroot/css/main.css",
+      "wwwroot/css/prettyPhoto.css",
+      "wwwroot/css/price-range.css",
+      "wwwroot/css/responsive.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.js",
+    "inputFiles": [
+      "wwwroot/js/main.js",
+      "wwwroot/js/price-range.js",
+      "wwwroot/js/jquery.prettyPhoto.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]
