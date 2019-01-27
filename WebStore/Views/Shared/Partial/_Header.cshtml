@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="/"><img src="images/home/logo.png" alt="" /></a>
+                        <a asp-controller="Home" asp-action="Index"><img src="images/home/logo.png" alt="" /></a>
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
@@ -63,10 +63,10 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a asp-controller="Employees" asp-action="Index"><i class="fa fa-user"></i> Сотрудники</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                            <li><a href="#"><i class="fa fa-user"></i> Аккаунт</a></li>
+                            <li><a href="#"><i class="fa fa-star"></i> Список желаний</a></li>
                             <li><a asp-controller="Home" asp-action="Checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a asp-controller="Cart" asp-action="Details"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
                         </ul>
                     </div>
                 </div>
@@ -92,25 +92,25 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
+                            <li><a asp-controller="Home" asp-action="Index" class="active">Домой</a></li>
                             <li class="dropdown">
                                 <a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a asp-controller="Catalog" asp-action="Shop">Products</a></li>
-                                    <li><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="1">Product Details</a></li>
+                                    <li><a asp-controller="Catalog" asp-action="Shop">Товары</a></li>
+                                    <li><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="1">Детали товара</a></li>
                                     <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
-                                    <li><a asp-controller="Home" asp-action="Cart">Cart</a></li>
+                                    <li><a asp-controller="Cart" asp-action="Details">Корзина</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a asp-controller="Home" asp-action="Blog">Blog List</a></li>
-                                    <li><a asp-controller="Home" asp-action="BlogSingle">Blog Single</a></li>
+                                    <li><a asp-controller="Home" asp-action="Blog">Блоги</a></li>
+                                    <li><a asp-controller="Home" asp-action="BlogSingle">Блог</a></li>
                                 </ul>
                             </li>
                             <li><a asp-controller="Home" asp-action="NotFoundPage">404</a></li>
-                            <li><a asp-controller="Home" asp-action="ContactUs">Contact</a></li>
+                            <li><a asp-controller="Home" asp-action="ContactUs">Контакты</a></li>
                         </ul>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search" />
+                        <input type="text" placeholder="Поиск" />
                     </div>
                 </div>
             </div>
