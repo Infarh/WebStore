@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Models;
 
 namespace WebStore.Controllers
 {
     public class CartController : Controller
     {
         private readonly ICartService _CartService;
+        private readonly IOrderService _OrderService;
 
-        public CartController(ICartService CartService) => _CartService = CartService;
+        public CartController(ICartService CartService, IOrderService OrderService)
+        {
+            _CartService = CartService;
+            _OrderService = OrderService;
+        }
 
-        public IActionResult Details() => View(_CartService.TransformCart());
+        public IActionResult Details() => View(new DetailsViewModel { Cart = _CartService.TransformCart(), Order = new OrderViewModel() });
 
         public IActionResult AddToCart(int id, string ReturnUrl)
         {

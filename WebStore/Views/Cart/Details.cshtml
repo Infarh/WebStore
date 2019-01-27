@@ -1,4 +1,4 @@
-﻿@model CartViewModel
+﻿@model DetailsViewModel
 @{
     ViewData["Title"] = "Корзина";
     Layout = "_LayoutLight";
@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model.Items)
+                @foreach (var item in Model.Cart.Items)
                 {
                     <tr>
                         <td class="cart_product">
