@@ -31,7 +31,7 @@ namespace WebStore.Controllers
                 model.UserName, model.Password, model.RememberMe, false);
             if (login_result.Succeeded)
                 return Url.IsLocalUrl(model.ReturnUrl)
-                    ? RedirectToAction(model.ReturnUrl)
+                    ? (IActionResult) Redirect(model.ReturnUrl)
                     : RedirectToAction("Index", "Home");
             ModelState.AddModelError("", "Неверное имя пользователя либо пароль");
             return View(model);
