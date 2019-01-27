@@ -1,13 +1,12 @@
 ﻿[
   {
-    "outputFileName": "wwwroot/css/site.mini.css",
+    "outputFileName": "wwwroot/css/site.css",
     "inputFiles": [
-      "wwwroot/css/site.css",
-      "wwwroot/css/animate.css",
-      "wwwroot/css/main.css",
-      "wwwroot/css/prettyPhoto.css",
-      "wwwroot/css/price-range.css",
-      "wwwroot/css/responsive.css"
+      "wwwroot/css/main.css", 
+      "wwwroot/css/prettyPhoto.css", 
+      "wwwroot/css/price-range.css", 
+      "wwwroot/css/animate.css", 
+      "wwwroot/css/responsive.css" 
     ]
   },
   {
