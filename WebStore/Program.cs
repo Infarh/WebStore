@@ -21,6 +21,7 @@ namespace WebStore
                 {
                     var context = services.GetRequiredService<WebStoreContext>();
                     DbInitializer.Initialize(context);
+                    DbInitializer.InitializeIdentity(context, services);
                 }
                 catch (Exception e)
                 {
