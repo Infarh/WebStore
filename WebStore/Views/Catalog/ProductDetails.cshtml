@@ -1,7 +1,7 @@
 ﻿@model ProductViewModel
 
 @{
-    ViewData["Title"] = "Детали продукта";
+    ViewData["Title"] = $"Товар: {Model.Name}";
 }
 
 <div class="row">
@@ -13,8 +13,8 @@
             <!--product-details-->
             <div class="col-sm-5">
                 <div class="view-product">
-                    <img src="~/images/shop/@Model.ImageUrl" alt="" />
-                    <h3>ZOOM</h3>
+                    <img src="~/images/shop/@Model.ImageUrl" alt="@Model.Name" />
+                    <h3>Подробно</h3>
                 </div>
                 <div id="similar-product" class="carousel slide" data-ride="carousel">
 
@@ -56,16 +56,16 @@
                     <p>Артикул: 1089772</p>
                     <img src="images/product-details/rating.png" alt="" />
                     <span>
-                        <span>@Model.Price</span>
-                        <label>Quantity:</label>
+                        <span>@Model.Price.ToString("C")</span>
+                        <label>Количество:</label>
                         <input type="text" value="3" />
-                        <button type="button" class="btn btn-default cart">
+                        <a class="btn btn-default cart" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-ReturnUrl="@Context.Request.Path">
                             <i class="fa fa-shopping-cart"></i>
                             Добавить в корзину
-                        </button>
+                        </a>
                     </span>
-                    <p><b>Кол-во:</b> На складе</p>
-                    <p><b>СОстояние:</b> Новый</p>
+                    <p><b>Доступность:</b> На складе</p>
+                    <p><b>Состояние:</b> Новый</p>
                     <p><b>Бренд:</b> @Model.Brand</p>
                     <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
                 </div><!--/product-information-->
