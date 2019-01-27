@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebStore.Entities.Entries.Product>
+@{
+    ViewData["Title"] = "Список продуктов";
+}
+
+<p><a asp-action="Create" asp-area="Admin" class="btn btn-success">Создать новый</a></p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <td>@Html.DisplayNameFor(m => m.Id)</td>
+        <td>@Html.DisplayNameFor(m => m.Name)</td>
+        <td>@Html.DisplayNameFor(m => m.Order)</td>
+        <td>@Html.DisplayNameFor(m => m.SectionId)</td>
+        <td>@Html.DisplayNameFor(m => m.BrandId)</td>
+        <td>@Html.DisplayNameFor(m => m.ImageUrl)</td>
+        <td>@Html.DisplayNameFor(m => m.Price)</td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => product.Id)</td>
+                <td>@Html.DisplayFor(m => product.Name)</td>
+                <td>@Html.DisplayFor(m => product.Order)</td>
+                <td>@Html.DisplayFor(m => product.SectionId)</td>
+                <td>@Html.DisplayFor(m => product.BrandId)</td>
+                <td>@Html.DisplayFor(m => product.ImageUrl)</td>
+                <td>@Html.DisplayFor(m => product.Price)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { area = "Admin", id = product.Id }) |
+                    @Html.ActionLink("Details", "Details", new { area = "Admin", id = product.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { area = "Admin", id = product.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
