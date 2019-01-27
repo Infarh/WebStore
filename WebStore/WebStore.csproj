@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\Admin\Views\Home\Partial\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\" />
     <Folder Include="Views\Employees\DisplayTemplates\" />
   </ItemGroup>
 
