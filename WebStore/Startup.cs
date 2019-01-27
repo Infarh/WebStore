@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL;
+using WebStore.DAL.Context;
 using WebStore.Entities.Identity;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;

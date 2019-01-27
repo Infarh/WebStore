@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL;
+using WebStore.DAL.Context;
 using WebStore.Entities.Identity;
 
 namespace WebStore.Data
