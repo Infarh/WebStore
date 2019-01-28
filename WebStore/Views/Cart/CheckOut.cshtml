@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Check out";
+﻿@model OrderViewModel
+@{
+    ViewData["Title"] = "Оформить заказ";
     Layout = "_LayoutLight";
 }
 
@@ -30,43 +31,54 @@
             </ul>
         </div><!--/checkout-options-->
         <div class="register-req">
-            <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+            <p>Пожалуйста зарегистрируйтесь и продолжите оформление чтобы легко получить в дальнейшем доступ к истории заказов, или оформите заказ без регистрации в качестве нашего гостя</p>
         </div><!--/register-req-->
         <div class="shopper-informations">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="shopper-info">
-                        <p>Shopper Information</p>
+                        <p>Информация о покупателе</p>
                         <form>
-                            <input type="text" placeholder="Display Name">
-                            <input type="text" placeholder="User Name">
-                            <input type="password" placeholder="Password">
-                            <input type="password" placeholder="Confirm password">
+                            <input type="text" placeholder="Отображаемое имя">
+                            <input type="text" placeholder="Имя пользователя">
+                            <input type="password" placeholder="Пароль">
+                            <input type="password" placeholder="Подтверждение пароля">
                         </form>
                         <a class="btn btn-primary" href="">Get Quotes</a>
-                        <a class="btn btn-primary" href="">Continue</a>
+                        <a class="btn btn-primary" href="">Продолжить</a>
                     </div>
                 </div>
                 <div class="col-sm-5 clearfix">
                     <div class="bill-to">
-                        <p>Bill To</p>
+                        <p>Платёж на</p>
                         <div class="form-one">
                             <form>
-                                <input type="text" placeholder="Company Name">
-                                <input type="text" placeholder="Email*">
-                                <input type="text" placeholder="Title">
-                                <input type="text" placeholder="First Name *">
-                                <input type="text" placeholder="Middle Name">
-                                <input type="text" placeholder="Last Name *">
-                                <input type="text" placeholder="Address 1 *">
-                                <input type="text" placeholder="Address 2">
+                                <input type="text" placeholder="Название компании">
+                                <input type="text" placeholder="Электронная почта*">
+                                <input type="text" placeholder="Название">
+                                <input type="text" placeholder="Фамилия *">
+                                <input type="text" placeholder="Имя *">
+                                <input type="text" placeholder="Отчество">
+                                <input type="text" placeholder="Адрес 1 *">
+                                <input type="text" placeholder="Адрес 2">
                             </form>
                         </div>
                         <div class="form-two">
                             <form>
-                                <input type="text" placeholder="Zip / Postal Code *">
+                                <input type="text" placeholder="Индекс *">
                                 <select>
-                                    <option>-- Country --</option>
+                                    <option>-- Страна --</option>
+                                    <option>Россия</option>
+                                    <option>Бангладеш</option>
+                                    <option>Англия</option>
+                                    <option>Индия</option>
+                                    <option>Пакестан</option>
+                                    <option>Украина</option>
+                                    <option>Канада</option>
+                                    <option>Дубаи</option>
+                                </select>
+                                <select>
+                                    <option>-- Область / Провинция / Регион --</option>
                                     <option>United States</option>
                                     <option>Bangladesh</option>
                                     <option>UK</option>
@@ -76,46 +88,35 @@
                                     <option>Canada</option>
                                     <option>Dubai</option>
                                 </select>
-                                <select>
-                                    <option>-- State / Province / Region --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <input type="password" placeholder="Confirm password">
-                                <input type="text" placeholder="Phone *">
-                                <input type="text" placeholder="Mobile Phone">
-                                <input type="text" placeholder="Fax">
+                                <input type="password" placeholder="Подтверждение пароля">
+                                <input type="text" placeholder="Телефон *">
+                                <input type="text" placeholder="Мобильный телефон">
+                                <input type="text" placeholder="Факс">
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="order-message">
-                        <p>Shipping Order</p>
-                        <textarea name="message" placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-                        <label><input type="checkbox"> Shipping to bill address</label>
+                        <p>Доставка</p>
+                        <textarea name="message" placeholder="Примечания о вашем заказе, Специальные примечания к доставке" rows="16"></textarea>
+                        <label><input type="checkbox"> Доставить на адрес платежа</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="review-payment">
-            <h2>Review & Payment</h2>
+            <h2>Проверка и оплата</h2>
         </div>
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
-                        <td class="image">Item</td>
+                        <td class="image">Позиция</td>
                         <td class="description"></td>
-                        <td class="price">Price</td>
-                        <td class="quantity">Quantity</td>
-                        <td class="total">Total</td>
+                        <td class="price">Цена</td>
+                        <td class="quantity">Количество</td>
+                        <td class="total">Итог</td>
                         <td></td>
                     </tr>
                 </thead>
@@ -126,7 +127,7 @@
                         </td>
                         <td class="cart_description">
                             <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
+                            <p>Артикул: 1089772</p>
                         </td>
                         <td class="cart_price">
                             <p>$59</p>
@@ -223,10 +224,10 @@
         </div>
         <div class="payment-options">
             <span>
-                <label><input type="checkbox"> Direct Bank Transfer</label>
+                <label><input type="checkbox"> Банковский перевод</label>
             </span>
             <span>
-                <label><input type="checkbox"> Check Payment</label>
+                <label><input type="checkbox"> Проверка платежа</label>
             </span>
             <span>
                 <label><input type="checkbox"> Paypal</label>

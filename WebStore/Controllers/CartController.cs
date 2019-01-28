@@ -15,7 +15,11 @@ namespace WebStore.Controllers
             _OrderService = OrderService;
         }
 
-        public IActionResult Details() => View(new DetailsViewModel { Cart = _CartService.TransformCart(), Order = new OrderViewModel() });
+        public IActionResult Details() => View(new DetailsViewModel
+        {
+            Cart = _CartService.TransformCart(),
+            Order = new OrderViewModel()
+        });
 
         public IActionResult AddToCart(int id, string ReturnUrl)
         {
@@ -39,6 +43,28 @@ namespace WebStore.Controllers
         {
             _CartService.RemoveAll();
             return RedirectToAction("Details");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult CheckOut(OrderViewModel Order)
+        {
+            if (!ModelState.IsValid)
+                return View(nameof(Details), new DetailsViewModel
+                {
+                    Cart = _CartService.TransformCart(),
+                    Order = Order
+                });
+
+            var order = _OrderService.CreateOrder(Order, _CartService.TransformCart(), User.Identity.Name);
+            _CartService.RemoveAll();
+
+            return RedirectToAction(nameof(OrderConfirmed), new { order.Id });
+        }
+
+        public IActionResult OrderConfirmed(int Id)
+        {
+            ViewBag.OrderId = Id;
+            return View();
         }
     }
 }

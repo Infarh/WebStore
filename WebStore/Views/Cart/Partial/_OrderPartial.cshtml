@@ -1,0 +1,37 @@
+﻿@using WebStore.Entities.Entries;
+@model OrderViewModel
+
+<form method="post" asp-antiforgery="true" asp-action="CheckOut">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <input asp-for="Name" placeholder="@nameof(Model.Name)" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Phone" placeholder="@nameof(Model.Phone)" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Address" placeholder="@nameof(Model.Address)" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+    </div>
+    @{
+        ViewData.TryGetValue("SumCard", out var SumCard);
+    }
+    <div class="col-sm-6">
+        <div class="total_area">
+            @if (SumCard != null)
+            {
+                var sum = (decimal) SumCard;
+                <ul>
+                    <li>Итого <span>@sum.ToString("C")</span></li>
+                </ul>
+                if (sum > 0)
+                {
+                    <input type="submit" value="Оформить заказ" class="btn btn-default check_out"/>
+                }
+            }
+        </div>
+    </div>
+</form>
