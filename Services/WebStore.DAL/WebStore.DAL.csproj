@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebStore.Entities\WebStore.Entities.csproj" />
+    <ProjectReference Include="..\..\Common\WebStore.Entities\WebStore.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
