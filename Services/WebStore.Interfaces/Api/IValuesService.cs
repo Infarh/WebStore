@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebStore.Interfaces.Api
 {
-    public interface IValuesServices
+    public interface IValuesService
     {
         /// <summary>Получить все элементы данных</summary>
         /// <returns>Перечисление строковых данных</returns>

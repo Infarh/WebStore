@@ -11,7 +11,7 @@ using WebStore.Interfaces.Api;
 
 namespace WebStore.Clients.Services
 {
-    public class ValuesClient : BaseClient, IValuesServices
+    public class ValuesClient : BaseClient, IValuesService
     {
         protected override string ServiceAddress { get; set; }
 
