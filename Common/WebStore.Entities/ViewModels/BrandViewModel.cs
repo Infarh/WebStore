@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Entities.Entries.Base.Interfaces;
+﻿using WebStore.Entities.Entries.Base.Interfaces;
 
-namespace WebStore.Models
+namespace WebStore.Entities.ViewModels
 {
     public class BrandViewModel : INamedEntry, IOrderedEntry
     {

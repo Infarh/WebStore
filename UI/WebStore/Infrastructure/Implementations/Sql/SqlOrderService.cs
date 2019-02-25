@@ -8,8 +8,8 @@ using WebStore.DAL;
 using WebStore.DAL.Context;
 using WebStore.Entities.Entries;
 using WebStore.Entities.Identity;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebStore.Entities.ViewModels;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Infrastructure.Implementations
 {

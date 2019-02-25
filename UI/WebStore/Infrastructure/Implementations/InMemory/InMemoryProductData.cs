@@ -2,7 +2,7 @@
 using System.Linq;
 using WebStore.Data;
 using WebStore.Entities.Entries;
-using WebStore.Infrastructure.Interfaces;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Infrastructure.Implementations
 {

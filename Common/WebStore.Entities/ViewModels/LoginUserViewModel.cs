@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebStore.Models
+namespace WebStore.Entities.ViewModels
 {
     public class LoginUserViewModel
     {

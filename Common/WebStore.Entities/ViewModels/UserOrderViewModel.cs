@@ -1,4 +1,4 @@
-﻿namespace WebStore.Models
+﻿namespace WebStore.Entities.ViewModels
 {
     /// <summary>Модель представления заказа пользователя</summary>
     public class UserOrderViewModel

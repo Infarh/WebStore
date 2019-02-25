@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebStore.Entities.ViewModels;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Infrastructure.Implementations
 {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Entities.Entries.Base.Interfaces;
+﻿using WebStore.Entities.Entries.Base.Interfaces;
 
-namespace WebStore.Models
+namespace WebStore.Entities.ViewModels
 {
     /// <summary>Модель описания товара</summary>
     public class ProductViewModel : INamedEntry, IOrderedEntry

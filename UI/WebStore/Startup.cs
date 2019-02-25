@@ -10,7 +10,7 @@ using WebStore.DAL;
 using WebStore.DAL.Context;
 using WebStore.Entities.Identity;
 using WebStore.Infrastructure.Implementations;
-using WebStore.Infrastructure.Interfaces;
+using WebStore.Interfaces.Services;
 
 namespace WebStore
 {
