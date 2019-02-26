@@ -34,12 +34,13 @@ namespace WebStore
             services.AddDbContext<WebStoreContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            services.AddSingleton<IEmployeesData, EmployeesClient>();
             //services.AddSingleton<IProductData, InMemoryProductData>();
             //services.AddScoped<IProductData, SqlProductData>();
+            //services.AddScoped<IOrderService, SqlOrderService>();
+
+            services.AddSingleton<IEmployeesData, EmployeesClient>();
             services.AddTransient<IProductData, ProductsClient>();
             services.AddScoped<ICartService, CookieCartService>();
-            //services.AddScoped<IOrderService, SqlOrderService>();
             services.AddTransient<IOrderService, OrdersClient>();
             services.AddTransient<IValuesService, ValuesClient>();
 
