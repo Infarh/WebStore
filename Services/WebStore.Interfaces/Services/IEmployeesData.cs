@@ -8,12 +8,18 @@ namespace WebStore.Interfaces.Services
     {
         /// <summary>Получить всех сотрудников</summary>
         /// <returns></returns>
-        IEnumerable<EmployeeView> Get();
+        IEnumerable<EmployeeView> GetAll();
 
         /// <summary>Получить сотрудника по идентификатору</summary>
         /// <param name="id">Идентификатор сотрудника</param>
         /// <returns>Сотрудник с указанным идентификатором</returns>
-        EmployeeView Get(int id);
+        EmployeeView GetById(int id);
+
+        /// <summary>Обновление сотрудника</summary>
+        /// <param name="id">Идентификатор обновляемого сотрудника</param>
+        /// <param name="Employee">Новые данные сотрудника</param>
+        /// <returns>Обновлённые данные сотрудника</returns>
+        EmployeeView Update(int id, EmployeeView Employee);
 
         /// <summary>Добавить нового сотрудника</summary>
         /// <param name="Employee">Добавляемый сотрудник</param>

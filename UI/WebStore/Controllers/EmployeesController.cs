@@ -16,12 +16,12 @@ namespace WebStore.Controllers
 
         public EmployeesController(IEmployeesData EmployeesData) => _Employees = EmployeesData;
 
-        public IActionResult Index() => View(_Employees.Get());
+        public IActionResult Index() => View(_Employees.GetAll());
 
         public IActionResult Details(int? id)
         {
             if (id is null) return NotFound();
-            var employee = _Employees.Get((int)id);
+            var employee = _Employees.GetById((int)id);
             if (employee is null) return NotFound();
             return View(employee);
         }
@@ -30,7 +30,7 @@ namespace WebStore.Controllers
         public IActionResult Edit(int? id)
         {
             if (id is null) return View(new EmployeeView());
-            var employee = _Employees.Get((int)id);
+            var employee = _Employees.GetById((int)id);
             if (employee is null) return NotFound();
             return View(employee);
         }
@@ -44,7 +44,7 @@ namespace WebStore.Controllers
                 _Employees.AddNew(EmployeInfo);
             else
             {
-                var employee = _Employees.Get(EmployeInfo.Id);
+                var employee = _Employees.GetById(EmployeInfo.Id);
                 if (employee is null) return NotFound();
                 employee.FirstName = EmployeInfo.FirstName;
                 employee.LastName = EmployeInfo.LastName;
@@ -59,7 +59,7 @@ namespace WebStore.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
-            if (_Employees.Get(id) is null) return NotFound();
+            if (_Employees.GetById(id) is null) return NotFound();
             _Employees.Delete(id);
             _Employees.SaveChanges();
             return RedirectToAction(nameof(Index));
