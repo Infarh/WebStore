@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebStore.Entities.DTO;
 using WebStore.Entities.Entries;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Data;
+using WebStore.Services.Map;
 
 namespace WebStore.Services.InMemory
 {
@@ -11,19 +13,20 @@ namespace WebStore.Services.InMemory
         public IEnumerable<Section> GetSections() => TestData.Sections;
 
         public IEnumerable<Brand> GetBrands() => TestData.Brands;
-        public IEnumerable<Product> GetProducts(ProductFilter Filter)
+        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {
             IEnumerable<Product> products = TestData.Products;
-            if (Filter is null || Filter.SectionId is null && Filter.BrandId is null)
-                return products;
+            if (!(Filter is null) && (!(Filter.SectionId is null) || !(Filter.BrandId is null)))
+            {
+                if (Filter.SectionId != null)
+                    products = products.Where(product => product.SectionId == Filter.SectionId);
+                if (Filter.BrandId != null)
+                    products = products.Where(product => product.SectionId == Filter.BrandId);
+            }
 
-            if (Filter.SectionId != null)
-                products = products.Where(product => product.SectionId == Filter.SectionId);
-            if (Filter.BrandId != null)
-                products = products.Where(product => product.SectionId == Filter.BrandId);
-            return products;
+            return products.Select(ProductDTO2Product.Map);
         }
 
-        public Product GetProductById(int id) => GetProducts(null).FirstOrDefault(product => product.Id == id);
+        public ProductDTO GetProductById(int id) => GetProducts(null).FirstOrDefault(product => product.Id == id);
     }
 }

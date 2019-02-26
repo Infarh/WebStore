@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebStore.Entities.Entries.Base.Interfaces;
+﻿using WebStore.Entities.Entries.Base.Interfaces;
 
 namespace WebStore.Entities.DTO
 {

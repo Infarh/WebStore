@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebStore.Entities.Entries.Product>
+﻿@model IEnumerable<WebStore.Entities.DTO.ProductDTO>
 @{
     ViewData["Title"] = "Список продуктов";
 }
@@ -11,8 +11,7 @@
         <td>@Html.DisplayNameFor(m => m.Id)</td>
         <td>@Html.DisplayNameFor(m => m.Name)</td>
         <td>@Html.DisplayNameFor(m => m.Order)</td>
-        <td>@Html.DisplayNameFor(m => m.SectionId)</td>
-        <td>@Html.DisplayNameFor(m => m.BrandId)</td>
+        <td>@Html.DisplayNameFor(m => m.Brand)</td>
         <td>@Html.DisplayNameFor(m => m.ImageUrl)</td>
         <td>@Html.DisplayNameFor(m => m.Price)</td>
         <td></td>
@@ -25,8 +24,7 @@
                 <td>@Html.DisplayFor(m => product.Id)</td>
                 <td>@Html.DisplayFor(m => product.Name)</td>
                 <td>@Html.DisplayFor(m => product.Order)</td>
-                <td>@Html.DisplayFor(m => product.SectionId)</td>
-                <td>@Html.DisplayFor(m => product.BrandId)</td>
+                <td>@Html.DisplayFor(m => product.Brand.Id)</td>
                 <td>@Html.DisplayFor(m => product.ImageUrl)</td>
                 <td>@Html.DisplayFor(m => product.Price)</td>
                 <td>

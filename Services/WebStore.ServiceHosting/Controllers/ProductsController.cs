@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Entities.DTO;
 using WebStore.Entities.Entries;
 using WebStore.Interfaces.Services;
 
@@ -19,9 +20,9 @@ namespace WebStore.ServiceHosting.Controllers
         public IEnumerable<Brand> GetBrands() => _ProductData.GetBrands();
 
         [HttpPost, ActionName("Post")]
-        public IEnumerable<Product> GetProducts([FromBody] ProductFilter Filter) => _ProductData.GetProducts(Filter);
+        public IEnumerable<ProductDTO> GetProducts([FromBody] ProductFilter Filter) => _ProductData.GetProducts(Filter);
 
         [HttpGet("{id}"), ActionName("Get")]
-        public Product GetProductById(int id) => _ProductData.GetProductById(id);
+        public ProductDTO GetProductById(int id) => _ProductData.GetProductById(id);
     }
 }

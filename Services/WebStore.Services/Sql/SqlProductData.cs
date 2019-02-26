@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebStore.DAL.Context;
+using WebStore.Entities.DTO;
 using WebStore.Entities.Entries;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Map;
 
 namespace WebStore.Services.Sql
 {
@@ -17,20 +19,21 @@ namespace WebStore.Services.Sql
 
         public IEnumerable<Brand> GetBrands() => _DataContext.Brands.AsEnumerable();
 
-        public IEnumerable<Product> GetProducts(ProductFilter Filter)
+        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {
-            if (Filter is null || Filter.SectionId is null && Filter.BrandId is null)
-                return _DataContext.Products.AsEnumerable();
+            IQueryable<Product> query = _DataContext.Products;
+            if (!(Filter is null) && (!(Filter.SectionId is null) || !(Filter.BrandId is null)))
+            {
+                if (Filter.BrandId != null)
+                    query = query.Where(product => product.BrandId == Filter.BrandId);
+                if (Filter.SectionId != null)
+                    query = query.Where(product => product.SectionId == Filter.SectionId);
 
-            var query = _DataContext.Products.AsQueryable();
-            if (Filter.BrandId != null)
-                query = query.Where(product => product.BrandId == Filter.BrandId);
-            if (Filter.SectionId != null)
-                query = query.Where(product => product.SectionId == Filter.SectionId);
+            }
 
-            return query.AsEnumerable();
+            return query.AsEnumerable().Select(ProductDTO2Product.Map);
         }
 
-        public Product GetProductById(int id) => _DataContext.Products.Find(id);
+        public ProductDTO GetProductById(int id) => ProductDTO2Product.Map(_DataContext.Products.Find(id));
     }
 }
