@@ -3,9 +3,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WebStore.Data;
 using WebStore.DAL;
 using WebStore.DAL.Context;
+using WebStore.Services.Data;
 
 namespace WebStore
 {

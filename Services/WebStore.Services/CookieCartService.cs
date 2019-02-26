@@ -6,7 +6,7 @@ using WebStore.Entities.Entries;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Infrastructure.Implementations
+namespace WebStore.Services
 {
     public class CookieCartService : ICartService
     {

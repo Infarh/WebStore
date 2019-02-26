@@ -3,7 +3,7 @@ using System.Linq;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Infrastructure.Implementations
+namespace WebStore.Services.InMemory
 {
     public class InMemoryEmployeesData : IEmployeesData
     {

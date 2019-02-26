@@ -2,14 +2,12 @@
 using System.Linq;
 using System.Threading;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebStore.DAL;
 using WebStore.DAL.Context;
 using WebStore.Entities.Identity;
 
-namespace WebStore.Data
+namespace WebStore.Services.Data
 {
     public class DbInitializer
     {

@@ -10,9 +10,11 @@ using WebStore.Clients.Services;
 using WebStore.DAL;
 using WebStore.DAL.Context;
 using WebStore.Entities.Identity;
-using WebStore.Infrastructure.Implementations;
 using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
+using WebStore.Services;
+using WebStore.Services.InMemory;
+using WebStore.Services.Sql;
 
 namespace WebStore
 {

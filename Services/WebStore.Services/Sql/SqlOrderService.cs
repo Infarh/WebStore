@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WebStore.DAL;
 using WebStore.DAL.Context;
 using WebStore.Entities.Entries;
 using WebStore.Entities.Identity;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Infrastructure.Implementations
+namespace WebStore.Services.Sql
 {
     public class SqlOrderService : IOrderService
     {
@@ -51,8 +49,10 @@ namespace WebStore.Infrastructure.Implementations
                 };
 
                 _Context.Orders.Add(order);
-                foreach (var (producn_view_model, quantity) in Cart.Items)
+                foreach (var item in Cart.Items)
                 {
+                    var producn_view_model = item.Key;
+                    var quantity = item.Value;
                     var product = _Context.Products.Find(producn_view_model.Id);
                     if(product is null)
                         throw new InvalidOperationException($"Продукт id:{producn_view_model.Id}:{producn_view_model.Name} отсутвтует в базе");
