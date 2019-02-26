@@ -11,6 +11,7 @@ using WebStore.Interfaces.Services;
 
 namespace WebStore.Services.Sql
 {
+    /// <summary>Реализация сервиса управления заказами на основе SQL-сервера БД</summary>
     public class SqlOrderService : IOrderService
     {
         private readonly WebStoreContext _Context;

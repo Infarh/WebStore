@@ -6,6 +6,7 @@ using WebStore.Interfaces.Services;
 
 namespace WebStore.Services.Sql
 {
+    /// <summary>Реализация сервиса управления товарами на основе SQL-сервера БД</summary>
     public class SqlProductData : IProductData
     {
         private readonly WebStoreContext _DataContext;
