@@ -22,7 +22,7 @@ namespace WebStore.Controllers
                 Name = order.Name,
                 Address = order.Address,
                 Phone = order.Phone,
-                TotalSum = order.Orders.Sum(i => i.Price * i.Quantity)
+                TotalSum = order.OrderItems.Sum(i => i.Price * i.Quantity)
             }));
     }
 }

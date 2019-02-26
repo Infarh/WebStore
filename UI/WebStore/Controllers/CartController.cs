@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using WebStore.Entities.DTO.Order;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;
 
@@ -55,7 +57,13 @@ namespace WebStore.Controllers
                     Order = Order
                 });
 
-            var order = _OrderService.CreateOrder(Order, _CartService.TransformCart(), User.Identity.Name);
+            var create_order_model = new CreateOrderModel
+            {
+                OrderViewModel = Order,
+                OrderItems = new List<OrderItemDTO>()
+            };
+
+            var order = _OrderService.CreateOrder(create_order_model, User.Identity.Name);
             _CartService.RemoveAll();
 
             return RedirectToAction(nameof(OrderConfirmed), new { order.Id });

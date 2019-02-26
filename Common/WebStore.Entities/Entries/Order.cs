@@ -21,6 +21,6 @@ namespace WebStore.Entities.Entries
         public DateTime Date { get; set; }
 
         /// <summary>Элементы заказа</summary>
-        public virtual ICollection<OrderItem> Orders { get; set; } = new HashSet<OrderItem>();
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
     }
 }
