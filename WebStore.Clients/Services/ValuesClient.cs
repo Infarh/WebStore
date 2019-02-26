@@ -13,8 +13,6 @@ namespace WebStore.Clients.Services
 {
     public class ValuesClient : BaseClient, IValuesService
     {
-        protected override string ServiceAddress { get; set; }
-
         public ValuesClient(IConfiguration configuration) : base(configuration) => ServiceAddress = "api/values";
 
         public IEnumerable<string> Get() => GetAsync().Result;

@@ -9,8 +9,6 @@ namespace WebStore.Clients.Services.Employees
 {
     public class EmployeesClient : BaseClient, IEmployeesData
     {
-        protected override string ServiceAddress { get; set; }
-
         public EmployeesClient(IConfiguration configuration) : base(configuration) => ServiceAddress = "api/employees";
 
         public IEnumerable<EmployeeView> GetAll() => Get<List<EmployeeView>>(ServiceAddress);

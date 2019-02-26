@@ -13,7 +13,7 @@ namespace WebStore.Clients.Base
         protected readonly HttpClient _Client;
 
         /// <summary>Адрес сервиса</summary>
-        protected abstract string ServiceAddress { get; set; }
+        protected string ServiceAddress { get; set; }
 
         /// <summary>Инициализация базового клианте</summary>
         /// <param name="configuration">Конфигурация приложения</param>
