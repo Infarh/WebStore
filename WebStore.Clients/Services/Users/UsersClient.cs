@@ -90,12 +90,12 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserRoleStore<User>
 
-        public async Task AddToRoleAsync(User user, string roleName, CancellationToken cancel)
+        public async Task AddToRoleAsync(User user, string role, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
 
-        public async Task RemoveFromRoleAsync(User user, string roleName, CancellationToken cancel)
+        public async Task RemoveFromRoleAsync(User user, string role, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -105,12 +105,12 @@ namespace WebStore.Clients.Services.Users
             throw new NotImplementedException();
         }
 
-        public async Task<bool> IsInRoleAsync(User user, string roleName, CancellationToken cancel)
+        public async Task<bool> IsInRoleAsync(User user, string role, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IList<User>> GetUsersInRoleAsync(string roleName, CancellationToken cancel)
+        public async Task<IList<User>> GetUsersInRoleAsync(string role, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -119,7 +119,7 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserPasswordStore<User>
 
-        public async Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancel)
+        public async Task SetPasswordHashAsync(User user, string hash, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -158,7 +158,7 @@ namespace WebStore.Clients.Services.Users
             throw new NotImplementedException();
         }
 
-        public async Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancel)
+        public async Task<User> FindByEmailAsync(string email, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -168,7 +168,7 @@ namespace WebStore.Clients.Services.Users
             throw new NotImplementedException();
         }
 
-        public async Task SetNormalizedEmailAsync(User user, string normalizedEmail, CancellationToken cancel)
+        public async Task SetNormalizedEmailAsync(User user, string email, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -177,7 +177,7 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserPhoneNumberStore<User>
 
-        public async Task SetPhoneNumberAsync(User user, string phoneNumber, CancellationToken cancel)
+        public async Task SetPhoneNumberAsync(User user, string phone, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -206,7 +206,7 @@ namespace WebStore.Clients.Services.Users
             throw new NotImplementedException();
         }
 
-        public async Task RemoveLoginAsync(User user, string loginProvider, string providerKey, CancellationToken cancel)
+        public async Task RemoveLoginAsync(User user, string LoginProvider, string ProviderKey, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -216,7 +216,7 @@ namespace WebStore.Clients.Services.Users
             throw new NotImplementedException();
         }
 
-        public async Task<User> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancel)
+        public async Task<User> FindByLoginAsync(string LoginProvider, string ProviderKey, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -230,7 +230,7 @@ namespace WebStore.Clients.Services.Users
             throw new NotImplementedException();
         }
 
-        public async Task SetLockoutEndDateAsync(User user, DateTimeOffset? lockoutEnd, CancellationToken cancel)
+        public async Task SetLockoutEndDateAsync(User user, DateTimeOffset? EndDate, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
@@ -288,7 +288,7 @@ namespace WebStore.Clients.Services.Users
             throw new NotImplementedException();
         }
 
-        public async Task ReplaceClaimAsync(User user, Claim claim, Claim newClaim, CancellationToken cancel)
+        public async Task ReplaceClaimAsync(User user, Claim OldClaim, Claim NewClaim, CancellationToken cancel)
         {
             throw new NotImplementedException();
         }
