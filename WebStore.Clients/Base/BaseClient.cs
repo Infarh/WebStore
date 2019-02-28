@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
@@ -34,17 +35,29 @@ namespace WebStore.Clients.Base
                 return await response.Content.ReadAsAsync<T>();
             return new T();
         }
+        protected virtual async Task<T> GetAsync<T>(string uri, CancellationToken cancel) where T : new()
+        {
+            var response = await _Client.GetAsync(uri, cancel);
+            if (response.IsSuccessStatusCode)
+                return await response.Content.ReadAsAsync<T>(cancel);
+            return new T();
+        }
 
         protected virtual HttpResponseMessage Post<T>(string uri, T item) => PostAsync(uri, item).Result;
         protected virtual async Task<HttpResponseMessage> PostAsync<T>(string uri, T item) =>
             (await _Client.PostAsJsonAsync(uri, item)).EnsureSuccessStatusCode();
+        protected virtual async Task<HttpResponseMessage> PostAsync<T>(string uri, T item, CancellationToken cancel) =>
+            (await _Client.PostAsJsonAsync(uri, item, cancel)).EnsureSuccessStatusCode();
 
         protected virtual HttpResponseMessage Put<T>(string uri, T item) => PutAsync(uri, item).Result;
         protected virtual async Task<HttpResponseMessage> PutAsync<T>(string uri, T item) =>
             (await _Client.PutAsJsonAsync(uri, item)).EnsureSuccessStatusCode();
+        protected virtual async Task<HttpResponseMessage> PutAsync<T>(string uri, T item, CancellationToken cancel) =>
+            (await _Client.PutAsJsonAsync(uri, item, cancel)).EnsureSuccessStatusCode();
 
         protected virtual HttpResponseMessage Delete(string uri) => DeleteAsync(uri).Result;
         protected virtual Task<HttpResponseMessage> DeleteAsync(string uri) => _Client.DeleteAsync(uri); 
+        protected virtual Task<HttpResponseMessage> DeleteAsync(string uri, CancellationToken cancel) => _Client.DeleteAsync(uri, cancel); 
 
         #endregion
     }
