@@ -90,30 +90,24 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserRoleStore<User>
 
-        public async Task AddToRoleAsync(User user, string role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task AddToRoleAsync(User user, string role, CancellationToken cancel) => 
+            await PostAsync($"{ServiceAddress}/Role/{role}", user, cancel);
 
-        public async Task RemoveFromRoleAsync(User user, string role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task RemoveFromRoleAsync(User user, string role, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/Role/Delete/{role}", user, cancel);
 
-        public async Task<IList<string>> GetRolesAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IList<string>> GetRolesAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/roles", user, cancel))
+                .Content
+                .ReadAsAsync<IList<string>>(cancel);
 
-        public async Task<bool> IsInRoleAsync(User user, string role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> IsInRoleAsync(User user, string role, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/InRole/{role}", user, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel);
 
-        public async Task<IList<User>> GetUsersInRoleAsync(string role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IList<User>> GetUsersInRoleAsync(string role, CancellationToken cancel) =>
+            await GetAsync<List<User>>($"{ServiceAddress}/UsersInRole/{role}", cancel);
 
         #endregion
 
