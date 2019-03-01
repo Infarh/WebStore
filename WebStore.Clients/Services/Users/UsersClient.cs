@@ -170,22 +170,24 @@ namespace WebStore.Clients.Services.Users
 
         public async Task SetPhoneNumberAsync(User user, string phone, CancellationToken cancel)
         {
-            throw new NotImplementedException();
+            user.PhoneNumber = phone;
+            await PostAsync($"{ServiceAddress}/SetPhoneNumber/{phone}", user, cancel);
         }
 
-        public async Task<string> GetPhoneNumberAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<string> GetPhoneNumberAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetPhoneNumber", user, cancel))
+                .Content
+                .ReadAsAsync<string>(cancel);
 
-        public async Task<bool> GetPhoneNumberConfirmedAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> GetPhoneNumberConfirmedAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetPhoneNumberConfirmed", user, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel);
 
         public async Task SetPhoneNumberConfirmedAsync(User user, bool confirmed, CancellationToken cancel)
         {
-            throw new NotImplementedException();
+            user.PhoneNumberConfirmed = confirmed;
+            await PostAsync($"{ServiceAddress}/SetPhoneNumberConfirmed/{confirmed}", user, cancel);
         }
 
         #endregion
