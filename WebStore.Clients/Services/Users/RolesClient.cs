@@ -1,12 +1,11 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using WebStore.Clients.Base;
 
-namespace WebStore.Clients.Services
+namespace WebStore.Clients.Services.Users
 {
     public class RolesClient : BaseClient, IRoleStore<IdentityRole>
     {
