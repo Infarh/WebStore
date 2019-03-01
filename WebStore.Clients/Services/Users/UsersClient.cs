@@ -194,25 +194,19 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserLoginStore<User>
 
-        public async Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/AddLogin", new AddLoginDTO {User = user, UserLoginInfo = login}, cancel);
 
-        public async Task RemoveLoginAsync(User user, string LoginProvider, string ProviderKey, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task RemoveLoginAsync(User user, string LoginProvider, string ProviderKey, CancellationToken cancel) => 
+            await PostAsync($"{ServiceAddress}/RemoveLogin/{LoginProvider}/{ProviderKey}", user, cancel);
 
-        public async Task<IList<UserLoginInfo>> GetLoginsAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IList<UserLoginInfo>> GetLoginsAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetLogins", user, cancel))
+                .Content
+                .ReadAsAsync<List<UserLoginInfo>>(cancel);
 
-        public async Task<User> FindByLoginAsync(string LoginProvider, string ProviderKey, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<User> FindByLoginAsync(string LoginProvider, string ProviderKey, CancellationToken cancel) =>
+            await GetAsync<User>($"{ServiceAddress}/User/FindByLogin/{LoginProvider}/{ProviderKey}", cancel);
 
         #endregion
 
