@@ -212,40 +212,38 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserLockoutStore<User>
 
-        public async Task<DateTimeOffset?> GetLockoutEndDateAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<DateTimeOffset?> GetLockoutEndDateAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetLockoutEndDate", user, cancel))
+                .Content
+                .ReadAsAsync<DateTimeOffset?>(cancel);
 
         public async Task SetLockoutEndDateAsync(User user, DateTimeOffset? EndDate, CancellationToken cancel)
         {
-            throw new NotImplementedException();
+            user.LockoutEnd = EndDate;
+            await PostAsync($"{ServiceAddress}/SetLockoutEndDate",
+                new SetLockoutDTO {User = user, LockoutEnd = EndDate}, cancel);
         }
 
-        public async Task<int> IncrementAccessFailedCountAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<int> IncrementAccessFailedCountAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/IncrementAccessFailedCount", user, cancel))
+                .Content
+                .ReadAsAsync<int>(cancel);
 
-        public async Task ResetAccessFailedCountAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task ResetAccessFailedCountAsync(User user, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/ResetAccessFailedCont", user, cancel);
 
-        public async Task<int> GetAccessFailedCountAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<int> GetAccessFailedCountAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetAccessFailedCount", user, cancel))
+                .Content
+                .ReadAsAsync<int>(cancel);
 
-        public async Task<bool> GetLockoutEnabledAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> GetLockoutEnabledAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetLockoutEnabled", user, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel);
 
-        public async Task SetLockoutEnabledAsync(User user, bool enabled, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task SetLockoutEnabledAsync(User user, bool enabled, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/SetLockoutEnabled/{enabled}", user, cancel);
 
         #endregion
 
