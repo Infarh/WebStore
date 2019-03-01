@@ -1,4 +1,5 @@
 ﻿using System;
+using log4net;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,14 @@ namespace WebStore
 {
     public class Program
     {
-        public static void Main(string[] args) => CreateWebHostBuilder(args).Build().Run();
+        public static void Main(string[] args)
+        {
+            var str = Environment.CurrentDirectory;
+
+            var host = CreateWebHostBuilder(args).Build();
+            LogManager.GetLogger(typeof(Program)).Info("Application - Main is invoked");
+            host.Run();
+        }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

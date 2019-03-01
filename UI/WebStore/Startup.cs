@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Xml;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +23,16 @@ namespace WebStore
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration) => Configuration = configuration;
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        {
+            Configuration = configuration;
+
+            var xml = new XmlDocument();
+            xml.Load(Path.Combine(env.ContentRootPath, "log4net.config"));
+
+            var repository = log4net.LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
+            var result = log4net.Config.XmlConfigurator.Configure(repository, xml["log4net"]);
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
