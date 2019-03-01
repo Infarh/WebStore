@@ -35,7 +35,7 @@
                     <div class="logo pull-left">
                         <a asp-controller="Home" asp-action="Index"><img src="images/home/logo.png" alt="" /></a>
                     </div>
-                    <div class="btn-group pull-right">
+                    @*<div class="btn-group pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
                                 USA
@@ -57,7 +57,7 @@
                                 <li><a href="#">Pound</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
@@ -65,7 +65,7 @@
                             <li><a asp-controller="Employees" asp-action="Index"><i class="fa fa-user"></i> Сотрудники</a></li>
                             <li><a href="#"><i class="fa fa-user"></i> Аккаунт</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Список желаний</a></li>
-                            <li><a asp-controller="Cart" asp-action="Checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li><a asp-controller="Cart" asp-action="Checkout"><i class="fa fa-crosshairs"></i> Заказы</a></li>
                             <li><a asp-controller="Cart" asp-action="Details"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
                             <li><a asp-controller="Home" asp-action="WebApiTest"><i class="fa fa-internet-explorer"></i> WebApi</a></li>
                         </ul>
@@ -95,11 +95,11 @@
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a asp-controller="Home" asp-action="Index" class="active">Домой</a></li>
                             <li class="dropdown">
-                                <a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                                <a href="#">Магазин<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a asp-controller="Catalog" asp-action="Shop">Товары</a></li>
                                     <li><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="1">Детали товара</a></li>
-                                    <li><a asp-controller="Cart" asp-action="Checkout">Checkout</a></li>
+                                    <li><a asp-controller="Cart" asp-action="Checkout">Заказ</a></li>
                                     <li><a asp-controller="Cart" asp-action="Details">Корзина</a></li>
                                 </ul>
                             </li>
@@ -115,14 +115,11 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    @await Component.InvokeAsync("LoginLogout")
-                </div>
-                <div class="col-sm-3">
+                @*<div class="col-sm-3">
                     <div class="search_box pull-right">
                         <input type="text" placeholder="Поиск" />
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div><!--/header-bottom-->

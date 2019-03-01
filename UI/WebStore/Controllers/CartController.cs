@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Entities.DTO.Order;
 using WebStore.Entities.ViewModels;
@@ -6,6 +7,7 @@ using WebStore.Interfaces.Services;
 
 namespace WebStore.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ICartService _CartService;
