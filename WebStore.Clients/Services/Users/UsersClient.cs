@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -58,8 +57,8 @@ namespace WebStore.Clients.Services.Users
         {
             return await (await PostAsync($"{ServiceAddress}/User", user, cancel))
                 .Content
-                .ReadAsAsync<bool>(cancel) 
-                    ? IdentityResult.Success 
+                .ReadAsAsync<bool>(cancel)
+                    ? IdentityResult.Success
                     : IdentityResult.Failed();
         }
 
@@ -81,7 +80,7 @@ namespace WebStore.Clients.Services.Users
                 : IdentityResult.Failed();
         }
 
-        public async Task<User> FindByIdAsync(string id, CancellationToken cancel) => 
+        public async Task<User> FindByIdAsync(string id, CancellationToken cancel) =>
             await GetAsync<User>($"{ServiceAddress}/User/FindById/{id}", cancel);
 
         public async Task<User> FindByNameAsync(string name, CancellationToken cancel) =>
@@ -91,7 +90,7 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserRoleStore<User>
 
-        public async Task AddToRoleAsync(User user, string role, CancellationToken cancel) => 
+        public async Task AddToRoleAsync(User user, string role, CancellationToken cancel) =>
             await PostAsync($"{ServiceAddress}/Role/{role}", user, cancel);
 
         public async Task RemoveFromRoleAsync(User user, string role, CancellationToken cancel) =>
@@ -114,8 +113,8 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserPasswordStore<User>
 
-        public async Task SetPasswordHashAsync(User user, string hash, CancellationToken cancel) => 
-            await PostAsync($"{ServiceAddress}/SetPasswordHash", new PasswordHashDTO{ Hash = hash, User = user}, cancel);
+        public async Task SetPasswordHashAsync(User user, string hash, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/SetPasswordHash", new PasswordHashDTO { Hash = hash, User = user }, cancel);
 
         public async Task<string> GetPasswordHashAsync(User user, CancellationToken cancel) =>
             await (await PostAsync($"{ServiceAddress}/GetPasswordHash", user, cancel))
@@ -195,9 +194,9 @@ namespace WebStore.Clients.Services.Users
         #region Implementation of IUserLoginStore<User>
 
         public async Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancel) =>
-            await PostAsync($"{ServiceAddress}/AddLogin", new AddLoginDTO {User = user, UserLoginInfo = login}, cancel);
+            await PostAsync($"{ServiceAddress}/AddLogin", new AddLoginDTO { User = user, UserLoginInfo = login }, cancel);
 
-        public async Task RemoveLoginAsync(User user, string LoginProvider, string ProviderKey, CancellationToken cancel) => 
+        public async Task RemoveLoginAsync(User user, string LoginProvider, string ProviderKey, CancellationToken cancel) =>
             await PostAsync($"{ServiceAddress}/RemoveLogin/{LoginProvider}/{ProviderKey}", user, cancel);
 
         public async Task<IList<UserLoginInfo>> GetLoginsAsync(User user, CancellationToken cancel) =>
@@ -221,7 +220,7 @@ namespace WebStore.Clients.Services.Users
         {
             user.LockoutEnd = EndDate;
             await PostAsync($"{ServiceAddress}/SetLockoutEndDate",
-                new SetLockoutDTO {User = user, LockoutEnd = EndDate}, cancel);
+                new SetLockoutDTO { User = user, LockoutEnd = EndDate }, cancel);
         }
 
         public async Task<int> IncrementAccessFailedCountAsync(User user, CancellationToken cancel) =>
@@ -264,36 +263,30 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserClaimStore<User>
 
-        public async Task<IList<Claim>> GetClaimsAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IList<Claim>> GetClaimsAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetClaims", user, cancel))
+                .Content
+                .ReadAsAsync<List<Claim>>(cancel);
 
-        public async Task AddClaimsAsync(User user, IEnumerable<Claim> claims, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task AddClaimsAsync(User user, IEnumerable<Claim> claims, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/AddClaims", new AddClaimDTO { User = user, Claims = claims }, cancel);
 
-        public async Task ReplaceClaimAsync(User user, Claim OldClaim, Claim NewClaim, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task ReplaceClaimAsync(User user, Claim OldClaim, Claim NewClaim, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/ReplaceClaim", new ReplaceClaimDTO { User = user, OldClaim = OldClaim, NewClaim = NewClaim }, cancel);
 
-        public async Task RemoveClaimsAsync(User user, IEnumerable<Claim> claims, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task RemoveClaimsAsync(User user, IEnumerable<Claim> claims, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/RemoveClaims", new RemoveClaimDTO { User = user, Claims = claims }, cancel);
 
-        public async Task<IList<User>> GetUsersForClaimAsync(Claim claim, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IList<User>> GetUsersForClaimAsync(Claim claim, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetUsersForClaim", claim, cancel))
+                .Content
+                .ReadAsAsync<List<User>>(cancel);
 
         #endregion
 
         #region Implementation of IDisposable
 
-        void IDisposable.Dispose() { }
+        void IDisposable.Dispose() => _Client.Dispose();
 
         #endregion
 
