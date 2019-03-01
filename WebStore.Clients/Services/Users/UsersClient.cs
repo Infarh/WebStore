@@ -251,13 +251,14 @@ namespace WebStore.Clients.Services.Users
 
         public async Task SetTwoFactorEnabledAsync(User user, bool enabled, CancellationToken cancel)
         {
-            throw new NotImplementedException();
+            user.TwoFactorEnabled = enabled;
+            await PostAsync($"{ServiceAddress}/SetTwoFactor/{enabled}", user, cancel);
         }
 
-        public async Task<bool> GetTwoFactorEnabledAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> GetTwoFactorEnabledAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetTwoFactorEnabled", user, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel);
 
         #endregion
 

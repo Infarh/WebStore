@@ -93,10 +93,10 @@ namespace WebStore.ServiceHosting.Controllers
         [HttpPost("GetUsersForClaim")]
         public async Task<IList<User>> GetUsersForClaimAsync([FromBody] Claim claim) => await _UserStore.GetUsersForClaimAsync(claim);
 
-        [HttpGet("GetTwoFactorEnabled")]
-        public async Task<bool> GetTwoFactorEnabledAsync([FromBody] User user) => await _UserStore.GetTwoFactorEnabledAsync(user);
+        [HttpPost("GetTwoFactorEnabled")]
+        public async Task<bool> SetTwoFactorEnabledAsync([FromBody] User user) => await _UserStore.GetTwoFactorEnabledAsync(user);
 
-        [HttpGet("SetTwoFactor/{enable}")]
+        [HttpPost("SetTwoFactor/{enable}")]
         public async Task SetTwoFactorEnabledAsync([FromBody] User user, bool enable) => await _UserStore.SetTwoFactorEnabledAsync(user, enable);
 
         [HttpPost("GetEmail")]
