@@ -133,38 +133,36 @@ namespace WebStore.Clients.Services.Users
 
         public async Task SetEmailAsync(User user, string email, CancellationToken cancel)
         {
-            throw new NotImplementedException();
+            user.Email = email;
+            await PostAsync($"{ServiceAddress}/SetEmail/{email}", user, cancel);
         }
 
-        public async Task<string> GetEmailAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<string> GetEmailAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetEmail", user, cancel))
+                .Content
+                .ReadAsAsync<string>(cancel);
 
-        public async Task<bool> GetEmailConfirmedAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> GetEmailConfirmedAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetEmailConfirmed", user, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel);
 
         public async Task SetEmailConfirmedAsync(User user, bool confirmed, CancellationToken cancel)
         {
-            throw new NotImplementedException();
+            user.EmailConfirmed = confirmed;
+            await PostAsync($"{ServiceAddress}/SetEmailConfirmed/{confirmed}", user, cancel);
         }
 
-        public async Task<User> FindByEmailAsync(string email, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<User> FindByEmailAsync(string email, CancellationToken cancel) =>
+            await GetAsync<User>($"{ServiceAddress}/User/FindByEmail/{email}", cancel);
 
-        public async Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/User/GetNormalizedEmail", user, cancel))
+                .Content
+                .ReadAsAsync<string>(cancel);
 
-        public async Task SetNormalizedEmailAsync(User user, string email, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task SetNormalizedEmailAsync(User user, string email, CancellationToken cancel) =>
+            await PostAsync($"{ServiceAddress}/SetnormalizedEmail/{email}", user, cancel);
 
         #endregion
 
