@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using WebStore.Clients.Services;
 using WebStore.Clients.Services.Employees;
 using WebStore.Clients.Services.Orders;
@@ -23,16 +24,7 @@ namespace WebStore
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
-        {
-            Configuration = configuration;
-
-            var xml = new XmlDocument();
-            xml.Load(Path.Combine(env.ContentRootPath, "log4net.config"));
-
-            var repository = log4net.LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
-            var result = log4net.Config.XmlConfigurator.Configure(repository, xml["log4net"]);
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -92,7 +84,7 @@ namespace WebStore
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory log)
         {
             if (env.IsDevelopment())
             {
