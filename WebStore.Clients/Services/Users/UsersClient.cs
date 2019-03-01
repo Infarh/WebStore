@@ -20,19 +20,15 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserStore<User>
 
-        public async Task<string> GetUserIdAsync(User user, CancellationToken cancel)
-        {
-            return await (await PostAsync($"{ServiceAddress}/UserId", user, cancel))
+        public async Task<string> GetUserIdAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/UserId", user, cancel))
                 .Content
                 .ReadAsAsync<string>(cancel);
-        }
 
-        public async Task<string> GetUserNameAsync(User user, CancellationToken cancel)
-        {
-            return await (await PostAsync($"{ServiceAddress}/UserName", user, cancel))
+        public async Task<string> GetUserNameAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/UserName", user, cancel))
                 .Content
                 .ReadAsAsync<string>(cancel);
-        }
 
         public async Task SetUserNameAsync(User user, string name, CancellationToken cancel)
         {
@@ -40,12 +36,10 @@ namespace WebStore.Clients.Services.Users
             await PostAsync($"{ServiceAddress}/UserName/{name}", user, cancel);
         }
 
-        public async Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancel)
-        {
-            return await (await PostAsync($"{ServiceAddress}/NormalUserName/", user, cancel))
+        public async Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/NormalUserName/", user, cancel))
                 .Content
                 .ReadAsAsync<string>(cancel);
-        }
 
         public async Task SetNormalizedUserNameAsync(User user, string name, CancellationToken cancel)
         {
@@ -53,32 +47,26 @@ namespace WebStore.Clients.Services.Users
             await PostAsync($"{ServiceAddress}/NormalUserName/{name}", user, cancel);
         }
 
-        public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancel)
-        {
-            return await (await PostAsync($"{ServiceAddress}/User", user, cancel))
-                .Content
-                .ReadAsAsync<bool>(cancel)
-                    ? IdentityResult.Success
-                    : IdentityResult.Failed();
-        }
-
-        public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancel)
-        {
-            return await (await PutAsync($"{ServiceAddress}/User", user, cancel))
+        public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/User", user, cancel))
                 .Content
                 .ReadAsAsync<bool>(cancel)
                 ? IdentityResult.Success
                 : IdentityResult.Failed();
-        }
 
-        public async Task<IdentityResult> DeleteAsync(User user, CancellationToken cancel)
-        {
-            return await (await PostAsync($"{ServiceAddress}/User/Delete", user, cancel))
+        public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancel) =>
+            await (await PutAsync($"{ServiceAddress}/User", user, cancel))
                 .Content
                 .ReadAsAsync<bool>(cancel)
                 ? IdentityResult.Success
                 : IdentityResult.Failed();
-        }
+
+        public async Task<IdentityResult> DeleteAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/User/Delete", user, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel)
+                ? IdentityResult.Success
+                : IdentityResult.Failed();
 
         public async Task<User> FindByIdAsync(string id, CancellationToken cancel) =>
             await GetAsync<User>($"{ServiceAddress}/User/FindById/{id}", cancel);
