@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -15,55 +14,59 @@ namespace WebStore.Clients.Services
 
         #region Implementation of IRoleStore<IdentityRole>
 
-        public async Task<IdentityResult> CreateAsync(IdentityRole role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IdentityResult> CreateAsync(IdentityRole role, CancellationToken cancel) =>
+            await (await PostAsync(ServiceAddress, role, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel)
+                ? IdentityResult.Success
+                : IdentityResult.Failed();
 
-        public async Task<IdentityResult> UpdateAsync(IdentityRole role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IdentityResult> UpdateAsync(IdentityRole role, CancellationToken cancel) =>
+            await (await PutAsync(ServiceAddress, role, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel)
+                ? IdentityResult.Success
+                : IdentityResult.Failed();
 
-        public async Task<IdentityResult> DeleteAsync(IdentityRole role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IdentityResult> DeleteAsync(IdentityRole role, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/Delete", role, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel)
+                ? IdentityResult.Success
+                : IdentityResult.Failed();
 
-        public async Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetRoleId", role, cancel))
+                .Content
+                .ReadAsAsync<string>(cancel);
 
-        public async Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetRoleName", role, cancel))
+                .Content
+                .ReadAsAsync<string>(cancel);
 
         public async Task SetRoleNameAsync(IdentityRole role, string name, CancellationToken cancel)
         {
-            throw new NotImplementedException();
+            role.Name = name;
+            await PostAsync($"{ServiceAddress}/SetRoleName/{name}", role, cancel);
         }
 
-        public async Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetnormalizedRoleName", role, cancel))
+                .Content
+                .ReadAsAsync<string>(cancel);
 
         public async Task SetNormalizedRoleNameAsync(IdentityRole role, string name, CancellationToken cancel)
         {
-            throw new NotImplementedException();
+            role.NormalizedName = name;
+            await PostAsync($"{ServiceAddress}/SetNormalizedRoleName/{name}", role, cancel);
         }
 
-        public async Task<IdentityRole> FindByIdAsync(string id, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IdentityRole> FindByIdAsync(string id, CancellationToken cancel) =>
+            await GetAsync<IdentityRole>($"{ServiceAddress}/FindById/{id}", cancel);
 
-        public async Task<IdentityRole> FindByNameAsync(string name, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IdentityRole> FindByNameAsync(string name, CancellationToken cancel) =>
+            await GetAsync<IdentityRole>($"{ServiceAddress}/FindByName/{name}", cancel);
 
         #endregion
 
