@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using WebStore.Clients.Base;
+using WebStore.Entities.DTO.User;
 using WebStore.Entities.Identity;
 using WebStore.Interfaces.Services;
 
@@ -113,20 +114,18 @@ namespace WebStore.Clients.Services.Users
 
         #region Implementation of IUserPasswordStore<User>
 
-        public async Task SetPasswordHashAsync(User user, string hash, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task SetPasswordHashAsync(User user, string hash, CancellationToken cancel) => 
+            await PostAsync($"{ServiceAddress}/SetPasswordHash", new PasswordHashDTO{ Hash = hash, User = user}, cancel);
 
-        public async Task<string> GetPasswordHashAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<string> GetPasswordHashAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/GetPasswordHash", user, cancel))
+                .Content
+                .ReadAsAsync<string>(cancel);
 
-        public async Task<bool> HasPasswordAsync(User user, CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> HasPasswordAsync(User user, CancellationToken cancel) =>
+            await (await PostAsync($"{ServiceAddress}/HasPassword", user, cancel))
+                .Content
+                .ReadAsAsync<bool>(cancel);
 
         #endregion
 
