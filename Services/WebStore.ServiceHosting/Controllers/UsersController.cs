@@ -46,7 +46,7 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<User> FindByIdAsync(string id) => await _UserStore.FindByIdAsync(id);
 
         [HttpGet("User/Normal/{name}")]
-        public async Task<User> FindByNameAsync(string NormalizedName) => await _UserStore.FindByNameAsync(NormalizedName);
+        public async Task<User> FindByNameAsync(string name) => await _UserStore.FindByNameAsync(name);
 
         [HttpPost("Role/{role}")]
         public async Task AddToRoleAsync([FromBody] User user, string role) => await _UserStore.AddToRoleAsync(user, role);
