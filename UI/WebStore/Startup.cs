@@ -85,10 +85,8 @@ namespace WebStore
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory log)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            log.AddLog4Net();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

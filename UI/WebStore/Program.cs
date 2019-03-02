@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WebStore.DAL;
 using WebStore.DAL.Context;
+using WebStore.Logger;
 using WebStore.Services.Data;
 
 namespace WebStore
@@ -27,14 +28,7 @@ namespace WebStore
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((host, log) =>  // https://docs.microsoft.com/ru-ru/aspnet/core/fundamentals/logging/?view=aspnetcore-2.2
-                {
-                    var xml = new XmlDocument();
-                    xml.Load(Path.Combine(host.HostingEnvironment.ContentRootPath, "log4net.config"));
-
-                    var repository = LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
-                    log4net.Config.XmlConfigurator.Configure(repository, xml["log4net"]);
-                })
+                .ConfigureLogging((host, log) => log.AddLog4Net()) // https://docs.microsoft.com/ru-ru/aspnet/core/fundamentals/logging/?view=aspnetcore-2.2
                 .UseStartup<Startup>();
     }
 }
