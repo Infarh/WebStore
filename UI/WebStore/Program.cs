@@ -28,7 +28,8 @@ namespace WebStore
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((host, log) => log.AddLog4Net()) // https://docs.microsoft.com/ru-ru/aspnet/core/fundamentals/logging/?view=aspnetcore-2.2
+                .ConfigureAppConfiguration((host, builder) => builder.AddLog4NetConfiguration())
+                .ConfigureLogging((host, log) => log.AddLog4NetLogger()) // https://docs.microsoft.com/ru-ru/aspnet/core/fundamentals/logging/?view=aspnetcore-2.2
                 .UseStartup<Startup>();
     }
 }

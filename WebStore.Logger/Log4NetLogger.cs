@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Xml;
 using log4net;
-using log4net.Repository;
 using Microsoft.Extensions.Logging;
 
 namespace WebStore.Logger
@@ -11,19 +10,14 @@ namespace WebStore.Logger
     {
         private readonly string _Name;
 
-        private readonly XmlElement _XmlElement;
-
         private readonly ILog _Log;
-
-        private readonly ILoggerRepository _LoggerRepository;
 
         public Log4NetLogger(string Name, XmlElement xml)
         {
             _Name = Name;
-            _XmlElement = xml;
-            _LoggerRepository = LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
-            _Log = LogManager.GetLogger(_LoggerRepository.Name, Name);
-            log4net.Config.XmlConfigurator.Configure(_LoggerRepository, xml["log4net"]);
+            var logger_repository = LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
+            _Log = LogManager.GetLogger(logger_repository.Name, Name);
+            log4net.Config.XmlConfigurator.Configure(logger_repository, xml["log4net"]);
         }
 
         #region Implementation of ILogger
