@@ -20,6 +20,17 @@ namespace WebStore.Controllers
         public IActionResult Blog() => View();
         public IActionResult NotFoundPage() => View();
 
+        public IActionResult ErrorStatus(string id)
+        {
+            switch (id)
+            {
+                case "404":
+                    return RedirectToAction(nameof(NotFoundPage));
+                default:
+                    return Content($"Статусный код ошибки {id}");
+            }
+        }
+
         public async Task<IActionResult> WebApiTest()
         {
             var values = await _Values.GetAsync();

@@ -18,6 +18,7 @@ using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
 using WebStore.Logger;
 using WebStore.Services;
+using WebStore.Services.MiddleWare;
 
 namespace WebStore
 {
@@ -94,6 +95,9 @@ namespace WebStore
 
             app.UseStaticFiles();
             app.UseAuthentication();
+
+            app.UseStatusCodePagesWithRedirects("~/home/ErrorStatus/{0}");
+            app.AddErrorHandling();
 
             app.UseMvc(routes =>
             {
