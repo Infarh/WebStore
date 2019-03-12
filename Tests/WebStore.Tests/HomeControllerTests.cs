@@ -70,7 +70,14 @@ namespace WebStore.Tests
             Xunit.Assert.IsType<ViewResult>(view);
         }
 
-        public void ErrorStatus_404_Return_Redirect2NotFound() { }
+        [TestMethod]
+        public void ErrorStatus_404_Return_Redirect2NotFound()
+        {
+            var result = _HomeController.ErrorStatus("404");
+            var redirect_to_action_result = Xunit.Assert.IsType<RedirectToActionResult>(result);
+            Xunit.Assert.NotNull(redirect_to_action_result);
+            Xunit.Assert.Equal(nameof(HomeController.NotFoundPage), redirect_to_action_result.ActionName);
+        }
 
     }
 }
