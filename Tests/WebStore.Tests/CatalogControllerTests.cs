@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using WebStore.Controllers;
@@ -30,16 +27,16 @@ namespace WebStore.Tests
                 .Setup(p => p.GetProductById(It.IsAny<int>()))
                 .Returns<int>(id => new ProductDTO
                 {
-                     Id = id,
-                     Name = expected_product_name,
-                     Order = expected_order,
-                     Price = expected_price,
-                     ImageUrl = expected_image_url,
-                     Brand = new BrandDTO
-                     {
-                         Id = expected_brand_id,
-                         Name = expected_brand_name
-                     } 
+                    Id = id,
+                    Name = expected_product_name,
+                    Order = expected_order,
+                    Price = expected_price,
+                    ImageUrl = expected_image_url,
+                    Brand = new BrandDTO
+                    {
+                        Id = expected_brand_id,
+                        Name = expected_brand_name
+                    }
                 });
 
             var catalog_controller = new CatalogController(product_data_mock.Object);
@@ -56,6 +53,20 @@ namespace WebStore.Tests
             Xunit.Assert.Equal(expected_price, model.Price);
             Xunit.Assert.Equal(expected_image_url, model.ImageUrl);
             Xunit.Assert.Equal(expected_brand_name, model.Brand);
-        }   
+        }
+                                         
+        [TestMethod]
+        public void ProductDetails_Returns_NotFound()
+        {
+            var products_data_mock = new Mock<IProductData>();
+            products_data_mock
+                .Setup(p => p.GetProductById(It.IsAny<int>()))
+                .Returns((ProductDTO)null);
+
+            var catalog_controller = new CatalogController(products_data_mock.Object);
+
+            var result = catalog_controller.ProductDetails(1);
+            Xunit.Assert.IsType<NotFoundResult>(result);
+        }
     }
 }
