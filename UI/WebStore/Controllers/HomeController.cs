@@ -18,7 +18,11 @@ namespace WebStore.Controllers
         public IActionResult ContactUs() => View();
         public IActionResult BlogSingle() => View();
         public IActionResult Blog() => View();
-        public IActionResult NotFoundPage() => View();
+        public IActionResult NotFoundPage()
+        {
+            HttpContext.Response.StatusCode = 404;
+            return View();
+        }
 
         public IActionResult ErrorStatus(string id)
         {

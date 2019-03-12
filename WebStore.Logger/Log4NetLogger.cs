@@ -17,7 +17,7 @@ namespace WebStore.Logger
             _Name = Name;
             var logger_repository = LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
             _Log = LogManager.GetLogger(logger_repository.Name, Name);
-            log4net.Config.XmlConfigurator.Configure(logger_repository, xml["log4net"]);
+            log4net.Config.XmlConfigurator.Configure(logger_repository, xml);
         }
 
         #region Implementation of ILogger
