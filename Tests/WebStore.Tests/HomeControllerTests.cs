@@ -34,5 +34,18 @@ namespace WebStore.Tests
 
             Xunit.Assert.Equal(2, model.Count());
         }
+
+        public void Index_Returns_View() { }
+
+        public void ContactUs_Returns_View() { }
+
+        public void BlogSingle_Returns_View() { }
+
+        public void Blog_Returns_View() { }
+
+        public void NotFoundPage_Returns_View() { }
+
+        public void ErrorStatus_404_Return_Redirect2NotFound() { }
+
     }
 }
