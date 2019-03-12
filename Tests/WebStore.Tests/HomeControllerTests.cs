@@ -35,15 +35,40 @@ namespace WebStore.Tests
             Xunit.Assert.Equal(2, model.Count());
         }
 
-        public void Index_Returns_View() { }
+        [TestMethod]
+        public void Index_Returns_View()
+        {
+            var view = _HomeController.Index();
+            Xunit.Assert.IsType<ViewResult>(view);
+        }
 
-        public void ContactUs_Returns_View() { }
+        [TestMethod]
+        public void ContactUs_Returns_View()
+        {
+            var view = _HomeController.ContactUs();
+            Xunit.Assert.IsType<ViewResult>(view);
+        }
 
-        public void BlogSingle_Returns_View() { }
+        [TestMethod]
+        public void BlogSingle_Returns_View()
+        {
+            var view = _HomeController.BlogSingle();
+            Xunit.Assert.IsType<ViewResult>(view);
+        }
 
-        public void Blog_Returns_View() { }
+        [TestMethod]
+        public void Blog_Returns_View()
+        {
+            var view = _HomeController.Blog();
+            Xunit.Assert.IsType<ViewResult>(view);
+        }
 
-        public void NotFoundPage_Returns_View() { }
+        [TestMethod]
+        public void NotFoundPage_Returns_View()
+        {
+            var view = _HomeController.NotFoundPage();
+            Xunit.Assert.IsType<ViewResult>(view);
+        }
 
         public void ErrorStatus_404_Return_Redirect2NotFound() { }
 
