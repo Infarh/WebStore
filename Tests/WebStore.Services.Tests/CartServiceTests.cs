@@ -74,5 +74,31 @@ namespace WebStore.Services.Tests
             Assert.Equal(1, cart.Items.Count);
             Assert.Equal(expected_product_id, cart.Items[0].ProductId);
         }
+
+        [TestMethod]
+        public void CartService_AddToCart_Increment_Quantity()
+        {
+            const int expected_product_id = 5;
+            const int expected_items_count = 3;
+
+            var cart = new Entities.ViewModels.Cart
+            {
+                Items = new List<CartItem>
+                {
+                    new CartItem { ProductId = expected_product_id, Quantity = expected_items_count - 1 }
+                }
+            };
+
+            var product_data_mock = new Mock<IProductData>();
+            var cart_store_mock = new Mock<ICartStore>();
+            cart_store_mock.Setup(c => c.Cart).Returns(cart);
+
+            var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
+            
+            cart_service.AddToCart(expected_product_id);
+
+            Assert.Equal(1, cart.Items.Count);
+            Assert.Equal(expected_items_count, cart.ItemsCount);
+        }
     }
 }
