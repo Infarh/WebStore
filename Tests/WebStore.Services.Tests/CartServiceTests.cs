@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using WebStore.Entities.DTO;
+using WebStore.Entities.Entries;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Cart;
@@ -94,11 +97,139 @@ namespace WebStore.Services.Tests
             cart_store_mock.Setup(c => c.Cart).Returns(cart);
 
             var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
-            
+
             cart_service.AddToCart(expected_product_id);
 
             Assert.Equal(1, cart.Items.Count);
             Assert.Equal(expected_items_count, cart.ItemsCount);
+        }
+
+        [TestMethod]
+        public void CartService_RemoveFromCart_Removes_Correct_Item()
+        {
+            var cart = new Entities.ViewModels.Cart
+            {
+                Items = new List<CartItem>
+                {
+                    new CartItem { ProductId = 1,Quantity = 3 },
+                    new CartItem { ProductId = 2, Quantity = 1 }
+                }
+            };
+
+            var product_data_mock = new Mock<IProductData>();
+            var cart_store_mock = new Mock<ICartStore>();
+            cart_store_mock.Setup(c => c.Cart).Returns(cart);
+
+            var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
+
+            cart_service.RemoveFromCart(1);
+
+            Assert.Equal(1, cart.Items.Count);
+            Assert.Equal(2, cart.Items[0].ProductId);
+        }
+
+        [TestMethod]
+        public void CartService_RemoveAll_Clear_Cart()
+        {
+            var cart = new Entities.ViewModels.Cart
+            {
+                Items = new List<CartItem>
+                {
+                    new CartItem { ProductId = 1,Quantity = 3 },
+                    new CartItem { ProductId = 2, Quantity = 1 }
+                }
+            };
+
+            var product_data_mock = new Mock<IProductData>();
+            var cart_store_mock = new Mock<ICartStore>();
+            cart_store_mock.Setup(c => c.Cart).Returns(cart);
+
+            var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
+
+            cart_service.RemoveAll();
+
+            Assert.Equal(0, cart.Items.Count);
+        }
+
+        [TestMethod]
+        public void CartService_Decrement_Correct()
+        {
+            var cart = new Entities.ViewModels.Cart
+            {
+                Items = new List<CartItem>
+                {
+                    new CartItem { ProductId = 1,Quantity = 3 },
+                    new CartItem { ProductId = 2, Quantity = 1 }
+                }
+            };
+
+            var product_data_mock = new Mock<IProductData>();
+            var cart_store_mock = new Mock<ICartStore>();
+            cart_store_mock.Setup(c => c.Cart).Returns(cart);
+
+            var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
+
+            cart_service.DecrementFromCart(1);
+
+            Assert.Equal(3, cart.ItemsCount);
+            Assert.Equal(2, cart.Items.Count);
+            Assert.Equal(1, cart.Items[0].ProductId);
+        }
+
+        [TestMethod]
+        public void CartService_Remove_Item_When_Decrement()
+        {
+            var cart = new Entities.ViewModels.Cart
+            {
+                Items = new List<CartItem>
+                {
+                    new CartItem {ProductId = 1,Quantity = 3},
+                    new CartItem {ProductId = 2, Quantity = 1}
+                }
+            };
+
+            var product_data_mock = new Mock<IProductData>();
+            var cart_store_mock = new Mock<ICartStore>();
+            cart_store_mock.Setup(c => c.Cart).Returns(cart);
+
+            var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
+
+            cart_service.DecrementFromCart(2);
+
+            Assert.Equal(3, cart.ItemsCount);
+            Assert.Equal(1, cart.Items.Count);
+        }
+
+        [TestMethod]
+        public void CartService_TransformCart_WorksCorrect()
+        {
+            var cart = new Entities.ViewModels.Cart
+            {
+                Items = new List<CartItem> { new CartItem { ProductId = 1, Quantity = 4 } }
+            };
+            var products = new List<ProductDTO>
+            {
+                new ProductDTO
+                {
+                    Id = 1,
+                    ImageUrl = "image.jpg",
+                    Name = "Test",
+                    Order = 0,
+                    Price = 1.11m,
+                }
+            };
+
+            var product_data_mock = new Mock<IProductData>();
+            product_data_mock.Setup(c => c.GetProducts(It.IsAny<ProductFilter>())).Returns(products);
+            var cart_store_mock = new Mock<ICartStore>();
+            cart_store_mock.Setup(c => c.Cart).Returns(cart);
+
+            var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
+
+            var result = cart_service.TransformCart();
+
+            Assert.Equal(4, result.ItemsCount);
+            Assert.Equal(1.11m, result.Items.First().Key.Price);
         }
     }
 }
