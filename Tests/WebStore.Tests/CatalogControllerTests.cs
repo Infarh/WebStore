@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using WebStore.Controllers;
 using WebStore.Entities.DTO;
+using WebStore.Entities.Entries;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;
 
@@ -54,7 +56,7 @@ namespace WebStore.Tests
             Xunit.Assert.Equal(expected_image_url, model.ImageUrl);
             Xunit.Assert.Equal(expected_brand_name, model.Brand);
         }
-                                         
+
         [TestMethod]
         public void ProductDetails_Returns_NotFound()
         {
@@ -68,5 +70,62 @@ namespace WebStore.Tests
             var result = catalog_controller.ProductDetails(1);
             Xunit.Assert.IsType<NotFoundResult>(result);
         }
+
+        [TestMethod]
+        public void Shop_Method_Returns_CorrectView()
+        {
+            const string expected_image1 = "image1.jpg";
+            const string expected_image2 = "image2.jpg";
+            const int expected_brand_id = 5;
+            const int expected_section_id = 1;
+
+            var products_data_mock = new Mock<IProductData>();
+            products_data_mock
+                .Setup(p => p.GetProducts(It.IsAny<ProductFilter>()))
+                .Returns<ProductFilter>(filter => new[]
+                {
+                    new ProductDTO
+                    {
+                        Id = 1,
+                        Name = "Product 1",
+                        ImageUrl = expected_image1,
+                        Order = 1,
+                        Price = 10,
+                        Brand = new BrandDTO
+                        {
+                            Id = 1,
+                            Name = "Brand"
+                        }
+                    },
+                    new ProductDTO
+                    {
+                        Id = 2,
+                        Name = "Product 2",
+                        ImageUrl = expected_image2,
+                        Order = 2,
+                        Price = 11,
+                        Brand = new BrandDTO
+                        {
+                            Id = 1,
+                            Name = "Brand"
+                        }
+                    },
+                });
+
+            var controller = new CatalogController(products_data_mock.Object);
+
+            var result = controller.Shop(expected_section_id, expected_brand_id);
+
+            var view_result = Xunit.Assert.IsType<ViewResult>(result);
+            var model = Xunit.Assert.IsAssignableFrom<CatalogViewModel>(view_result.ViewData.Model);
+
+            Xunit.Assert.Equal(2, model.Products.Count());
+            Xunit.Assert.Equal(expected_brand_id, model.BrandId);
+            Xunit.Assert.Equal(expected_section_id, model.SectionId);
+            Xunit.Assert.Contains(expected_image1, model.Products.Select(p => p.ImageUrl));
+            Xunit.Assert.Contains(expected_image2, model.Products.Select(p => p.ImageUrl));
+        }
+
+
     }
 }
