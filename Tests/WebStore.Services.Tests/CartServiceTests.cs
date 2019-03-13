@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using WebStore.Entities.ViewModels;
+using WebStore.Interfaces.Services;
+using WebStore.Services.Cart;
 using Assert = Xunit.Assert;
 
 namespace WebStore.Services.Tests
@@ -50,6 +53,26 @@ namespace WebStore.Services.Tests
             var actual_items_count = cart_view_model.ItemsCount;
 
             Assert.Equal(expected_items_count, actual_items_count);
+        }
+
+        [TestMethod]
+        public void CartService_AddToCart_WorksCorrect()
+        {
+            const int expected_product_id = 5;
+
+            var cart = new Entities.ViewModels.Cart { Items = new List<CartItem>() };
+
+            var product_data_mock = new Mock<IProductData>();
+            var cart_store_mock = new Mock<ICartStore>();
+            cart_store_mock.Setup(c => c.Cart).Returns(cart);
+
+            var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
+
+            cart_service.AddToCart(expected_product_id);
+
+            Assert.Equal(1, cart.ItemsCount);
+            Assert.Equal(1, cart.Items.Count);
+            Assert.Equal(expected_product_id, cart.Items[0].ProductId);
         }
     }
 }
