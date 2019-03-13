@@ -18,6 +18,7 @@ using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
 using WebStore.Logger;
 using WebStore.Services;
+using WebStore.Services.Cart;
 using WebStore.Services.MiddleWare;
 
 namespace WebStore
@@ -34,7 +35,8 @@ namespace WebStore
 
             services.AddSingleton<IEmployeesData, EmployeesClient>();
             services.AddTransient<IProductData, ProductsClient>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartStore, CookiesCartStore>();
+            services.AddScoped<ICartService, CartService>();
             services.AddTransient<IOrderService, OrdersClient>();
             services.AddTransient<IValuesService, ValuesClient>();
 

@@ -11,7 +11,7 @@ namespace WebStore.Services.Tests
         [TestMethod]
         public void CartClass_ItemsCount_Returns_Correct_Quantity()
         {
-            var cart = new Cart
+            var cart = new Entities.ViewModels.Cart
             {
                 Items = new List<CartItem>
                 {

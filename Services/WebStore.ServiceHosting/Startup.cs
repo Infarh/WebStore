@@ -17,6 +17,7 @@ using WebStore.DAL.Context;
 using WebStore.Entities.Identity;
 using WebStore.Interfaces.Services;
 using WebStore.Services;
+using WebStore.Services.Cart;
 using WebStore.Services.InMemory;
 using WebStore.Services.Sql;
 
@@ -44,7 +45,8 @@ namespace WebStore.ServiceHosting
             services.AddScoped<IOrderService, SqlOrderService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Добавляем сервис доступа к контексту http-запроса для обеспечения возможности использования нашего сервиса работы с корзиной покупателя
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartStore, CookiesCartStore>();
+            services.AddScoped<ICartService, CartService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
