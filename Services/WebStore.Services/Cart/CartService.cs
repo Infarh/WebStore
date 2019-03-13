@@ -53,7 +53,7 @@ namespace WebStore.Services.Cart
             _CartStore.Cart = cart;
         }
 
-        public void RemoveAll() => _CartStore.Cart = new Entities.ViewModels.Cart();
+        public void RemoveAll() => _CartStore.Cart.Items.Clear();
 
         public CartViewModel TransformCart()
         {
