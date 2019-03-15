@@ -41,7 +41,7 @@ namespace WebStore.Services.Tests
         }
 
         [TestMethod]
-        public void CartViewModel_Retulrns_Correct_ItemsCOunt()
+        public void CartViewModel_Retulrns_Correct_ItemsCount()
         {
             var cart_view_model = new CartViewModel
             {
