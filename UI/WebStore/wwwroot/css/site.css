@@ -2518,7 +2518,7 @@ h2.title {
   color: #FE980F;
 }
 
-.panel-body ul li.active {
+.panel-body ul li.active, .brands-name ul li.active {
     text-decoration: underline;
 }
 div.pp_default .pp_top,div.pp_default .pp_top .pp_middle,div.pp_default .pp_top .pp_left,div.pp_default .pp_top .pp_right,div.pp_default .pp_bottom,div.pp_default .pp_bottom .pp_left,div.pp_default .pp_bottom .pp_middle,div.pp_default .pp_bottom .pp_right{height:13px}
