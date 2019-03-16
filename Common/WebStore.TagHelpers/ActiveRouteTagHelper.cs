@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace WebStore.TagHelpers
 {
-    [HtmlTargetElement(Attributes = "is-active-route")]
+    [HtmlTargetElement(Attributes = ActiveRouteAttributeName)]
     public class ActiveRouteTagHelper : TagHelper
     {
+        public const string ActiveRouteAttributeName = "is-active-route";
+
         private Dictionary<string, string> _RouteValues;
 
         [HtmlAttributeName("asp-action")]
@@ -33,9 +35,10 @@ namespace WebStore.TagHelpers
         {
             base.Process(context, output);
 
-            if (ShouldBeActive()) MakeActive(output);
+            if (ShouldBeActive())
+                MakeActive(output);
 
-            output.Attributes.RemoveAll("is-active_route");
+            output.Attributes.RemoveAll(ActiveRouteAttributeName);
         }
 
         private bool ShouldBeActive()
@@ -48,17 +51,11 @@ namespace WebStore.TagHelpers
             if (Controller?.Equals(currrent_controller, str_comp) == false) return false;
             if (Action?.Equals(current_action, str_comp) == false) return false;
 
-            //if (!string.IsNullOrWhiteSpace(Controller) && !string.Equals(Controller, currrent_controller, str_comp))
-            //    return false;
-
-            //if(!string.IsNullOrWhiteSpace(Action) && string.Equals(Action, current_action, str_comp))
-            //    return false;
-
             foreach (var (key, value) in RouteValues)
                 if (!route_values.ContainsKey(key) || route_values[key].ToString() != value)
                     return false;
 
-            return false;
+            return true;
         }
 
         private void MakeActive(TagHelperOutput Output)
@@ -71,7 +68,7 @@ namespace WebStore.TagHelpers
                 class_attribute = new TagHelperAttribute(class_attribute_name, active_state);
                 Output.Attributes.Add(class_attribute);
             }
-            else if (class_attribute.Value?.ToString().Contains("active", StringComparison.Ordinal) != true)
+            else if (class_attribute.Value?.ToString().ToLower().Contains(active_state) != true)
                 Output.Attributes.SetAttribute(
                     class_attribute_name, 
                     class_attribute.Value is null 
