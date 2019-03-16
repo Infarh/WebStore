@@ -2,6 +2,7 @@
 using System.Linq;
 using WebStore.DAL.Context;
 using WebStore.Entities.DTO;
+using WebStore.Entities.DTO.Product;
 using WebStore.Entities.Entries;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Map;
@@ -17,7 +18,11 @@ namespace WebStore.Services.Sql
 
         public IEnumerable<Section> GetSections() => _DataContext.Sections.AsEnumerable();
 
+        public Section GetSectionById(int id) => _DataContext.Sections.FirstOrDefault(s => s.Id == id);
+
         public IEnumerable<Brand> GetBrands() => _DataContext.Brands.AsEnumerable();
+
+        public Brand GetBrandById(int id) => _DataContext.Brands.FirstOrDefault(b => b.Id == id);
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {

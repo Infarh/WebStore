@@ -1,6 +1,6 @@
 ﻿using WebStore.Entities.Entries.Base.Interfaces;
 
-namespace WebStore.Entities.DTO
+namespace WebStore.Entities.DTO.Product
 {
     /// <summary>Объект для передачи данных <see cref="Entries.Product"/> - товара</summary>
     public class ProductDTO : INamedEntry, IOrderedEntry
@@ -17,5 +17,7 @@ namespace WebStore.Entities.DTO
 
         /// <summary>Бренд</summary>
         public BrandDTO Brand { get; set; }
+
+        public SectionDTO Section { get; set; }
     }
 }

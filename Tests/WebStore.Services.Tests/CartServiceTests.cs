@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using WebStore.Entities.DTO;
+using WebStore.Entities.DTO.Product;
 using WebStore.Entities.Entries;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using WebStore.Entities.DTO;
+using WebStore.Entities.DTO.Product;
 using WebStore.Entities.Entries;
 
 namespace WebStore.Services.Map
@@ -21,7 +22,14 @@ namespace WebStore.Services.Map
                 {
                     Id = product.Brand.Id,
                     Name = product.Brand.Name,
-                }
+                },
+            Section = product.Section is null
+                ? null
+                : new SectionDTO
+                {
+                     Id = product.Section.Id,
+                     Name = product.Section.Name
+                }   
         };
 
         public static Product Map(ProductDTO product) => new Product

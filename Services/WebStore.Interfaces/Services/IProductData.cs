@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebStore.Entities.DTO;
+using WebStore.Entities.DTO.Product;
 using WebStore.Entities.Entries;
 
 namespace WebStore.Interfaces.Services
@@ -10,8 +11,12 @@ namespace WebStore.Interfaces.Services
         /// <summary>Получить секции</summary>
         IEnumerable<Section> GetSections();
 
+        Section GetSectionById(int id);
+
         /// <summary>Получить бренды</summary>
         IEnumerable<Brand> GetBrands();
+
+        Brand GetBrandById(int id);
 
         /// <summary>Список товаров</summary>
         /// <param name="Filter">Фильтр товаров</param>

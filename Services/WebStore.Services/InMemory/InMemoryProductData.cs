@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebStore.Entities.DTO;
+using WebStore.Entities.DTO.Product;
 using WebStore.Entities.Entries;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Data;
@@ -12,7 +13,12 @@ namespace WebStore.Services.InMemory
     {
         public IEnumerable<Section> GetSections() => TestData.Sections;
 
+        public Section GetSectionById(int id) => GetSections().FirstOrDefault(s => s.Id == id);
+
         public IEnumerable<Brand> GetBrands() => TestData.Brands;
+
+        public Brand GetBrandById(int id) => GetBrands().FirstOrDefault(b => b.Id == id);
+
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {
             IEnumerable<Product> products = TestData.Products;
