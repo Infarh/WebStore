@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebStore.Entities.Entries.Base.Interfaces;
 
-namespace WebStore.Entities.ViewModels
+namespace WebStore.Entities.ViewModels.Products
 {
     public class SectionViewModel : INamedEntry, IOrderedEntry
     {
