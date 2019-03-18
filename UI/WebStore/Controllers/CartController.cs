@@ -25,10 +25,12 @@ namespace WebStore.Controllers
             Order = new OrderViewModel()
         });
 
-        public IActionResult AddToCart(int id, string ReturnUrl)
+        public IActionResult GetCartView() => ViewComponent("Cart");
+
+        public IActionResult AddToCart(int id)
         {
             _CartService.AddToCart(id);
-            return Redirect(ReturnUrl);
+            return Json(new { id, message = "Товар добавлен в корзину" });
         }
 
         public IActionResult DecrementFromCart(int id)
