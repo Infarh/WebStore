@@ -1,1 +1,5 @@
-﻿<h2>Корзина!</h2>
+﻿@model WebStore.Entities.ViewModels.CartViewModel
+
+<div>
+    В <a asp-controller="Cart" asp-action="Details"><i class="fa fa-shopping-cart"></i>&nsub;корзине</a> @Model.ItemsCount товаров.
+</div>
