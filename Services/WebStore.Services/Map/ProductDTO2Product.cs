@@ -9,7 +9,7 @@ namespace WebStore.Services.Map
 {
     public static class ProductDTO2Product
     {
-        public static ProductDTO Map(Product product) => new ProductDTO
+        public static ProductDTO Map(this Product product) => new ProductDTO
         {
             Id = product.Id,
             Name = product.Name,

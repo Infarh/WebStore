@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.Entities.DTO;
 using WebStore.Entities.DTO.Product;
@@ -26,7 +27,9 @@ namespace WebStore.Services.Sql
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {
-            IQueryable<Product> query = _DataContext.Products;
+            IQueryable<Product> query = _DataContext.Products
+                .Include(p => p.Brand)
+                .Include(p => p.Section);
             if (!(Filter is null) && (!(Filter.SectionId is null) || !(Filter.BrandId is null)))
             {
                 if (Filter.BrandId != null)
@@ -39,6 +42,10 @@ namespace WebStore.Services.Sql
             return query.AsEnumerable().Select(ProductDTO2Product.Map);
         }
 
-        public ProductDTO GetProductById(int id) => ProductDTO2Product.Map(_DataContext.Products.Find(id));
+        public ProductDTO GetProductById(int id) => _DataContext.Products
+            .Include(p => p.Brand)
+            .Include(p => p.Section)
+            .FirstOrDefault(p => p.Id == id)
+            .Map();
     }
 }
