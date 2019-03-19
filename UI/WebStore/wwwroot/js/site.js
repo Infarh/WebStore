@@ -427,7 +427,8 @@ $(document).ready(function(){
 Cart = {
 	_properties: {
 		addToCartLink: "",
-		getCartViewLink: ""
+		getCartViewLink: "",
+		removeFromCartLink: ""
 	},
 	init: function (properties)
 	{
@@ -437,6 +438,7 @@ Cart = {
 	initAddToCart: function ()
 	{
 		$("a.CallAddToCart").click(Cart.addToCart);
+		$(".cart_quantity_delete").click(Cart.removeFromCart);
 	},
 	addToCart: function (event)
 	{
@@ -474,5 +476,21 @@ Cart = {
 		{
 			button.tooltip("destroy");
 		}, 500);
+	},
+	removeFromCart: function (event)
+	{
+		const button = $(this);
+		event.preventDefault();
+		const id = button.data("id");
+		$.get(Cart._properties.removeFromCartLink + "/" + id)
+			.done(function ()
+			{
+				button.closest("tr").remove();
+				Cart.refreshCartView();
+			})
+			.fail(function ()
+			{
+				console.log("removeFromCart error");
+			});
 	}
 };
