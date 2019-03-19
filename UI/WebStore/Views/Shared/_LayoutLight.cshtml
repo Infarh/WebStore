@@ -24,7 +24,6 @@
     @await RenderSectionAsync("styles", false)
     <!--[if lt IE 9]>
         <script src="~/js/html5shiv.js"></script>
-        <script src="~/js/respond.min.js"></script>
     <![endif]-->
     <link rel="shortcut icon" href="~/images/ico/favicon.ico">
     <script src="~/js/jquery.js"></script>
@@ -36,12 +35,28 @@
 
     @await Html.PartialAsync("Partial/_Footer")
 
-    <script src="~/js/jquery.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/jquery.scrollUp.min.js"></script>
-    <script src="~/js/price-range.js"></script>
-    <script src="~/js/jquery.prettyPhoto.js"></script>
-    <script src="~/js/main.js"></script>
+    <environment include="Development">
+        <script src="~/js/price-range.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.prettyPhoto.js" asp-append-version="true"></script>
+        <script src="~/js/main.js" asp-append-version="true"></script>
+        <script src="~/js/Cart/CartLogic.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    <script>
+    $(function() {
+        Cart.init({
+            addToCartLink: "@Url.Action("AddToCart", "Cart")",
+            getCartViewLink: "@Url.Action("GetCartView","Cart")",
+            removeFromCartLink: "@Url.Action("RemoveFromCart","Cart")"
+        });
+    });
+    </script>
+
     @await RenderSectionAsync("scripts", false)
 </body>
 </html>
