@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Entities.DTO.Order;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Map;
 
 namespace WebStore.Controllers
 {
@@ -43,7 +45,7 @@ namespace WebStore.Controllers
         public IActionResult DecrementFromCart(int id)
         {
             _CartService.DecrementFromCart(id);
-            return RedirectToAction("Details");
+            return Json(new { id, message = "Количество товара уменьшено на 1" });
         }
 
         /// <summary>Удаление из корзины товара с указанным идентификатором</summary>
@@ -52,7 +54,7 @@ namespace WebStore.Controllers
         public IActionResult RemoveFromCart(int id)
         {
             _CartService.RemoveFromCart(id);
-            return RedirectToAction("Details");
+            return Json(new { id, message = "Товар удалён из корзины" });
         }
 
         /// <summary>Удаление всех позиций из корзины</summary>
@@ -76,7 +78,18 @@ namespace WebStore.Controllers
                     Order = Order
                 });
 
-            var order = _OrderService.CreateOrder(new CreateOrderModel { OrderViewModel = Order }, User.Identity.Name);
+            var create_order_model = new CreateOrderModel
+            {
+                OrderViewModel = Order,
+                OrderItems = _CartService.TransformCart().Items.Select(item => new OrderItemDTO
+                {
+                    Id = item.Key.Id,
+                    Price = item.Key.Price,
+                    Quantity = item.Value
+                }).ToList()
+            };
+
+            var order = _OrderService.CreateOrder(create_order_model, User.Identity.Name);
             _CartService.RemoveAll();
 
             return RedirectToAction(nameof(OrderConfirmed), new { order.Id });
