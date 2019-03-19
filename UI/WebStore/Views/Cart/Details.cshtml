@@ -34,7 +34,7 @@
                             <h4><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="@item.Key.Id">@item.Key.Name</a></h4>
                             <p>Артикул: 1089772</p>
                         </td>
-                        <td class="cart_price">
+                        <td class="cart_price" data-price="@item.Key.Price">
                             <p>@item.Key.Price.ToString("C")</p>
                         </td>
                         <td class="cart_quantity">
