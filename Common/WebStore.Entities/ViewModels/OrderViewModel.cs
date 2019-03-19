@@ -2,15 +2,19 @@
 
 namespace WebStore.Entities.ViewModels
 {
+    /// <summary>Модель-представление заказа</summary>
     public class OrderViewModel
     {
-        [Required]
+        /// <summary>Имя</summary>
+        [Required, Display(Name = "Имя")]
         public string Name { get; set; }
 
-        [Required, DataType(DataType.PhoneNumber)]
+        /// <summary>Телефон</summary>
+        [Required, DataType(DataType.PhoneNumber), Display(Name="Телефон")]
         public string Phone { get; set; }
 
-        [Required]
+        /// <summary>Адрес</summary>
+        [Required, Display(Name="Адрес")]
         public string Address { get; set; }
     }
 }
