@@ -10,7 +10,7 @@
 	},
 	initAddToCart: function ()
 	{
-		$("a.CallAddToCart").on("click", Cart.addToCart);
+		$("a.CallAddToCart").click(Cart.addToCart);
 	},
 	addToCart: function (event)
 	{
@@ -22,7 +22,8 @@
 			{
 				Cart.showToolTip(button);
 				Cart.refreshCartView();
-			}).fail(function ()
+			})
+			.fail(function ()
 			{
 				console.log("addToCart error");
 			});

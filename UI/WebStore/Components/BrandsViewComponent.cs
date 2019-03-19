@@ -15,15 +15,16 @@ namespace WebStore.Components
 
         public BrandsViewComponent(IProductData ProductData) => _ProductData = ProductData;
 
-        public IViewComponentResult Invoke(string BrandId)
-        {
-            var brand_id = int.TryParse(BrandId, out var id) ? id : (int?) null;
-            return View(new BrandCompleteViewModel { Brands = GetBrands(), CurrentBrandId = brand_id });
-        }
+        public IViewComponentResult Invoke(string BrandId) =>
+            View(new BrandCompleteViewModel
+            {
+                Brands = GetBrands(),
+                CurrentBrandId = int.TryParse(BrandId, out var id) ? id : (int?) null
+            });
 
         private IEnumerable<BrandViewModel> GetBrands() => _ProductData
             .GetBrands()
-            .Select(brand => brand.Map())
+            .Select(Brand2BrandViewModel.Map)
             .OrderBy(brand => brand.Order)
             .ToList();
     }
