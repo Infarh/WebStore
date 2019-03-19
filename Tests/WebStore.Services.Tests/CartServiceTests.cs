@@ -221,7 +221,7 @@ namespace WebStore.Services.Tests
             };
 
             var product_data_mock = new Mock<IProductData>();
-            product_data_mock.Setup(c => c.GetProducts(It.IsAny<ProductFilter>())).Returns(products);
+            product_data_mock.Setup(c => c.GetProducts(It.IsAny<ProductFilter>())).Returns(new PagedProductDTO { Products = products });
             var cart_store_mock = new Mock<ICartStore>();
             cart_store_mock.Setup(c => c.Cart).Returns(cart);
 

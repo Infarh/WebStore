@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using WebStore.Entities.Entries;
 using WebStore.Entities.ViewModels;
 using WebStore.Interfaces.Services;
@@ -60,15 +57,16 @@ namespace WebStore.Services.Cart
             var products = _ProductData.GetProducts(new ProductFilter
             {
                 Ids = _CartStore.Cart.Items.Select(i => i.ProductId).ToArray()
-            }).Select(p => new ProductViewModel
-            {
-                Id = p.Id,
-                ImageUrl = p.ImageUrl,
-                Name = p.Name,
-                Order = p.Order,
-                Price = p.Price,
-                Brand = p.Brand is null ? string.Empty : p.Brand.Name
-            }).ToArray();
+            }).Products
+                .Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name,
+                    Order = p.Order,
+                    Price = p.Price,
+                    Brand = p.Brand is null ? string.Empty : p.Brand.Name
+                }).ToArray();
 
             return new CartViewModel
             {

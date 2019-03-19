@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebStore.Entities.DTO;
 using WebStore.Entities.DTO.Product;
 using WebStore.Entities.Entries;
 using WebStore.Interfaces.Services;
@@ -19,7 +18,7 @@ namespace WebStore.Services.InMemory
 
         public Brand GetBrandById(int id) => GetBrands().FirstOrDefault(b => b.Id == id);
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
+        public PagedProductDTO GetProducts(ProductFilter Filter)
         {
             IEnumerable<Product> products = TestData.Products;
             if (!(Filter is null) && (!(Filter.SectionId is null) || !(Filter.BrandId is null)))
@@ -30,9 +29,10 @@ namespace WebStore.Services.InMemory
                     products = products.Where(product => product.SectionId == Filter.BrandId);
             }
 
-            return products.Select(ProductDTO2Product.Map);
+            var result = products.ToArray();
+            return new PagedProductDTO { Products = result.Select(ProductDTO2Product.Map), TotalCount = result.Length };
         }
 
-        public ProductDTO GetProductById(int id) => GetProducts(null).FirstOrDefault(product => product.Id == id);
+        public ProductDTO GetProductById(int id) => GetProducts(null).Products.FirstOrDefault(product => product.Id == id);
     }
 }

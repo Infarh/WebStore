@@ -11,6 +11,12 @@ namespace WebStore.Entities.Entries
         /// <summary>Бренд товара</summary>
         public int? BrandId { get; set; }
 
+        /// <summary>Текущая страница</summary>
+        public int Page { get; set; }
+
+        /// <summary>Количество элементов на странице</summary>
+        public int? PageSize { get; set; }
+
         /// <summary>Идентификаторы</summary>
         public IEnumerable<int> Ids { get; set; }
     }

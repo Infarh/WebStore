@@ -25,21 +25,31 @@ namespace WebStore.Services.Sql
 
         public Brand GetBrandById(int id) => _DataContext.Brands.FirstOrDefault(b => b.Id == id);
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
+        public PagedProductDTO GetProducts(ProductFilter Filter)
         {
             IQueryable<Product> query = _DataContext.Products
                 .Include(p => p.Brand)
-                .Include(p => p.Section);
-            if (!(Filter is null) && (!(Filter.SectionId is null) || !(Filter.BrandId is null)))
+                .Include(p => p.Section)
+                .OrderBy(c => c.Order);
+
+            if (Filter?.BrandId != null)
+                query = query.Where(product => product.BrandId == Filter.BrandId);
+
+            if (Filter?.SectionId != null)
+                query = query.Where(product => product.SectionId == Filter.SectionId);
+
+            var total_count = query.Count();
+
+            if (Filter?.PageSize != null)
+                query = query
+                    .Skip((Filter.Page - 1) * (int) Filter.PageSize)
+                    .Take((int) Filter.PageSize);
+
+            return new PagedProductDTO
             {
-                if (Filter.BrandId != null)
-                    query = query.Where(product => product.BrandId == Filter.BrandId);
-                if (Filter.SectionId != null)
-                    query = query.Where(product => product.SectionId == Filter.SectionId);
-
-            }
-
-            return query.AsEnumerable().Select(ProductDTO2Product.Map);
+                Products = query.AsEnumerable().Select(ProductDTO2Product.Map),
+                TotalCount = total_count
+            };
         }
 
         public ProductDTO GetProductById(int id) => _DataContext.Products
