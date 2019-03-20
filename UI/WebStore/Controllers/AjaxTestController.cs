@@ -14,7 +14,7 @@ namespace WebStore.Controllers
         public async Task<IActionResult> GetTestData()
         {
             await Task.Delay(3000);
-            return Content(DateTime.Now.ToString("R"));
+            return PartialView("Partial/_DataView", DateTime.Now);
         }
     }
 }
