@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +13,18 @@ namespace WebStore.Controllers
         {
             await Task.Delay(3000);
             return PartialView("Partial/_DataView", DateTime.Now);
+        }
+
+        public async Task<IActionResult> GetDataJSON(int? id, string msg)
+        {
+            await Task.Delay(3000);
+            return Json(new TestDataItem { Message = $"Test message ({id ?? 0}):{msg}", Time = DateTime.Now });
+        }
+
+        private class TestDataItem
+        {
+            public string Message { get; set; }
+            public DateTime Time { get; set; }
         }
     }
 }

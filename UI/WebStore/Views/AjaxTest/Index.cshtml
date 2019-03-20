@@ -6,16 +6,41 @@
 
 <h2>Ajax</h2>
 
-<a href="" data-ajax="true" data-ajax-url="@Url.Action("GetTestData","AjaxTest")" data-ajax-update="#panel" data-ajax-loading="#spinner">Get time</a>
-<span id="spinner" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
-<div id="panel"></div>
+<div class="row">
+    <div class="col-sm-3">
+        <h3>Рендер представления на стороне сервера</h3>
+        <a href="#" data-ajax="true" data-ajax-url="@Url.Action("GetTestData", "AjaxTest")" data-ajax-update="#panel" data-ajax-loading="#spinner">Get time</a>
+        <span id="spinner" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
+        <div id="panel"></div>
+    </div>
+
+    <div class="col-sm-3">
+        <h3>Рендер представления на стороне клиента</h3>
+        <a href="#" id="StartButton">Запуск</a>
+        <div id="DataHost"></div>
+    </div>
+</div>
 
 @section scripts
-{
+    {
     <environment include="Development">
-        <script src="~/jquery/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>    
+        <script src="~/jquery/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/jquery/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>    
+        <script src="~/jquery/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
     </environment>
+
+    <script>
+        $("#StartButton").click(() => {
+            console.log("Send button click");
+            $.getJSON("@Url.Action("GetDataJSON","AjaxTest")", { id: 5, msg: "Hello World!" })
+                .done(function (data)
+                {
+                    const host = $("#DataHost");
+                    host.empty();
+                    host.append(data.message);
+                    host.append(data.time);
+                });
+        });
+    </script>
 }
