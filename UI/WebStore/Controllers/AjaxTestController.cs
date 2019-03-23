@@ -18,7 +18,7 @@ namespace WebStore.Controllers
         public async Task<IActionResult> GetDataJSON(int? id, string msg)
         {
             await Task.Delay(3000);
-            return Json(new TestDataItem { Message = $"Test message ({id ?? 0}):{msg}", Time = DateTime.Now });
+            return Json(new TestDataItem { Message = $"Test message ({id ?? 0}):{msg ?? "<null>"}", Time = DateTime.Now });
         }
 
         private class TestDataItem

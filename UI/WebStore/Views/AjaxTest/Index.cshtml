@@ -1,24 +1,40 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "_Layout";
 }
 
-<h2>Ajax</h2>
+<h2>Рендер представления на стороне...</h2>
 
 <div class="row">
     <div class="col-sm-3">
-        <h3>Рендер представления на стороне сервера</h3>
+        <h3>сервера</h3>
         <a href="#" data-ajax="true" data-ajax-url="@Url.Action("GetTestData", "AjaxTest")" data-ajax-update="#panel" data-ajax-loading="#spinner">Get time</a>
         <span id="spinner" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
         <div id="panel"></div>
     </div>
 
     <div class="col-sm-3">
-        <h3>Рендер представления на стороне клиента</h3>
+        <h3>клиента</h3>
         <a href="#" id="StartButton">Запуск</a>
         <div id="DataHost"></div>
     </div>
+
+    <div class="col-sm-3">
+        <h3>Action</h3>
+        <a href="#" data-ajax="true" data-ajax-url="@Url.Action("GetDataJSON","AjaxTest")" data-ajax-success="LoadDataSuccess" data-ajax-loading="#ResultSpinner">Запуск</a>
+        <span id="ResultSpinner" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
+        <div id="Result"></div>
+        <script>
+            var LoadDataSuccess = function (data)
+            {
+                const host = $("#Result");
+                host.empty();
+                host.append(data.message);
+                host.append(data.time);
+            };
+        </script>
+    </div>
+
 </div>
 
 @section scripts
@@ -34,7 +50,7 @@
         $("#StartButton").click(() => {
             console.log("Send button click");
             $.getJSON("@Url.Action("GetDataJSON","AjaxTest")", { id: 5, msg: "Hello World!" })
-                .done(function (data)
+                .done(data =>
                 {
                     const host = $("#DataHost");
                     host.empty();
